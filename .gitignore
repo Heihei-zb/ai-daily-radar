@@ -1,0 +1,9 @@
+.env
+logs/
+data/state.db
+data/raw/
+__pycache__/
+*.pyc
+_probe.py
+.DS_Store
+data/reports/

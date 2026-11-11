@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI 日报 · {{ date_cn }}</title>
+<meta name="description" content="{{ overview }}" />
+<style>
+  :root{
+    --ink:#191918; --muted:#6C6A62; --faint:#9A978D;
+    --line:#E5E1D5; --paper:#F6F4EE; --card:#FFFFFF; --soft:#F1EFE7;
+    --accent:#185FA5; --accent-soft:#E6F1FB;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:15px; line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  .page{max-width:1040px; margin:0 auto; padding:0 24px 64px;}
+
+  .mast{padding:38px 0 22px; border-bottom:1px solid var(--line);}
+  .mast-top{display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--faint); letter-spacing:.14em;}
+  .mast-top .nav{display:flex; gap:18px; letter-spacing:0;}
+  .mast-top .nav a{border-bottom:1px solid transparent; padding-bottom:2px;}
+  .mast-top .nav a:hover{border-color:var(--ink); color:var(--ink);}
+  h1{font-size:34px; line-height:1.25; font-weight:600; margin:16px 0 8px; letter-spacing:-.5px;}
+  h1 .wd{font-size:14px; font-weight:400; color:var(--faint); margin-left:12px; letter-spacing:0;}
+  .lede{font-size:15px; color:var(--muted); margin:0 0 14px; max-width:760px;}
+  .meta-line{display:flex; align-items:center; gap:10px; font-size:12px; color:var(--faint); flex-wrap:wrap;}
+  .dot{width:3px; height:3px; border-radius:50%; background:var(--faint); display:inline-block;}
+  .badge-warn{font-size:11px; color:#854F0B; background:#FAEEDA; border-radius:4px; padding:1px 7px;}
+
+  .kpis{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:24px 0 30px;}
+  .kpi{background:var(--soft); border-radius:10px; padding:14px 16px;}
+  .kpi span{display:block; font-size:12px; color:var(--muted);}
+  .kpi strong{display:block; font-size:26px; font-weight:600; margin-top:2px; font-variant-numeric:tabular-nums;}
+  .kpi strong em{font-size:12px; font-style:normal; color:var(--faint); margin-left:3px; font-weight:400;}
+
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; margin:0 0 12px;}
+  .section-head h2{font-size:13px; font-weight:600; letter-spacing:.08em; color:var(--muted); margin:0; text-transform:uppercase;}
+  .section-head span{font-size:12px; color:var(--faint);}
+
+  .dist{margin-bottom:30px;}
+  .bars{display:grid; gap:7px;}
+  .bar-row{display:grid; grid-template-columns:72px 1fr 34px; align-items:center; gap:12px;
+    background:none; border:0; padding:3px 0; cursor:pointer; text-align:left; font:inherit; color:inherit;}
+  .bar-name{font-size:12.5px; color:var(--muted);}
+  .bar-track{height:7px; background:var(--soft); border-radius:4px; overflow:hidden;}
+  .bar-fill{display:block; height:7px; border-radius:4px; transition:width .4s ease;}
+  .bar-num{font-size:12.5px; color:var(--faint); text-align:right; font-variant-numeric:tabular-nums;}
+  .bar-row[aria-pressed="true"] .bar-name{color:var(--ink); font-weight:600;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px 22px; transition:border-color .2s ease;}
+  .card:hover{border-color:#C9C4B4;}
+  .hero{padding:26px 28px 22px; margin-bottom:14px;}
+  .hero h2{font-size:25px; line-height:1.4; font-weight:600; margin:12px 0 12px; letter-spacing:-.2px;}
+  .hero .summary{font-size:15px; line-height:1.85; color:#3D3B36; margin:0 0 12px;}
+  .hero .why{font-size:13.5px;}
+
+  .chip{display:inline-block; font-size:11.5px; line-height:1.6; padding:1px 8px; border-radius:4px;}
+  .chip-model{color:#185FA5; background:#E6F1FB;}
+  .chip-product{color:#0F6E56; background:#E1F5EE;}
+  .chip-oss{color:#993C1D; background:#FAECE7;}
+  .chip-fund{color:#72243E; background:#FBEAF0;}
+  .chip-paper{color:#534AB7; background:#EEEDFE;}
+  .chip-news{color:#5F5E5A; background:#F1EFE8;}
+
+  .card-top{display:flex; align-items:center; justify-content:space-between; gap:8px;}
+  .no{font-size:15px; color:var(--faint); font-variant-numeric:tabular-nums;}
+  .card h3{font-size:16.5px; line-height:1.5; font-weight:600; margin:9px 0 8px;}
+  .summary{font-size:13.5px; line-height:1.8; color:var(--muted); margin:0 0 10px;}
+  .why{font-size:12.5px; line-height:1.75; color:#4A4842; margin:0; padding-left:10px; border-left:2px solid #B5D4F4;}
+  .src{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:12px;
+    font-size:11.5px; color:var(--faint);}
+  .src a{border-bottom:1px solid var(--line);}
+  .src a:hover{color:var(--accent); border-color:var(--accent);}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; margin-bottom:34px;}
+
+  .block{margin-bottom:34px;}
+  .block-title{font-size:17px; font-weight:600; margin:0 0 14px; display:flex; align-items:baseline; gap:12px;}
+  .block-title span{font-size:11.5px; color:var(--faint); font-weight:400;}
+
+  .repo-list{background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden;}
+  .repo{display:grid; grid-template-columns:1fr auto; gap:5px 14px; align-items:start;
+    padding:15px 18px; border-bottom:1px solid var(--line);}
+  .repo:last-child{border-bottom:0;}
+  .repo:hover{background:#FBFAF5;}
+  .repo-head{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .repo-focus{}
+  .repo-name{font-size:14px; font-weight:600; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    letter-spacing:-.2px; word-break:break-all;}
+  .repo:hover .repo-name{color:var(--accent);}
+  .repo-meta{font-size:11.5px; color:var(--faint); text-align:right; white-space:nowrap;}
+  .repo-desc{grid-column:1/2; font-size:12.5px; color:var(--muted); line-height:1.75;}
+  .repo-why{grid-column:1/2; font-size:12px; color:#4A4842; line-height:1.7;
+    padding-left:8px; border-left:2px solid #F0997B;}
+  .repo-link{grid-column:2/3; grid-row:2/4; align-self:center; font-size:12px;
+    color:var(--accent); white-space:nowrap; border-bottom:1px solid transparent;}
+  .repo:hover .repo-link{border-color:var(--accent);}
+
+  .papers{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:6px 0; margin:0; list-style:none;}
+  .paper{padding:14px 20px; border-bottom:1px solid var(--line);}
+  .paper:last-child{border-bottom:0;}
+  .paper h4{font-size:14.5px; font-weight:600; margin:0 0 6px; line-height:1.55;}
+  .paper p{font-size:12.5px; color:var(--muted); margin:0 0 6px; line-height:1.8;}
+  .paper .src{margin-top:0;}
+
+  footer{border-top:1px solid var(--line); padding-top:18px; font-size:12px; color:var(--faint); line-height:1.9;}
+  footer .sources{color:var(--muted);}
+  footer a{border-bottom:1px solid var(--line);}
+
+  .empty{background:var(--card); border:1px dashed var(--line); border-radius:14px; padding:40px; text-align:center; color:var(--faint);}
+
+  @media (max-width:720px){
+    .page{padding:0 16px 48px;}
+    h1{font-size:26px;}
+    h1 .wd{display:block; margin:6px 0 0;}
+    .kpis{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .hero{padding:20px 18px;}
+    .hero h2{font-size:20px;}
+    .grid{grid-template-columns:1fr;}
+    .repo{grid-template-columns:1fr; gap:4px;}
+    .repo-meta{text-align:left;}
+    .repo-desc,.repo-why{grid-column:1/2;}
+    .repo-link{grid-column:1/2; grid-row:auto; align-self:start;}
+    .mast{padding-top:26px;}
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <header class="mast">
+    <div class="mast-top">
+      <span>AI 行业日报</span>
+      <nav class="nav">
+        {% if prev_href %}<a href="{{ prev_href }}">前一日</a>{% endif %}
+        <a href="./archive.html">往期归档</a>
+      </nav>
+    </div>
+    <h1>{{ date_cn }}<span class="wd">{{ weekday_cn }}</span></h1>
+    <p class="lede">{{ overview }}</p>
+    <div class="meta-line">
+      <span>生成于 {{ generated_at }}</span>
+      <span class="dot"></span>
+      <span>{{ kpi.sources }} 个信源</span>
+      <span class="dot"></span>
+      <span>{{ kpi.count }} 条入选</span>
+      {% if not used_llm %}<span class="badge-warn">规则模式 · 未接入大模型</span>{% endif %}
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi"><span>今日收录</span><strong>{{ kpi.count }}<em>条</em></strong></div>
+    <div class="kpi"><span>覆盖信源</span><strong>{{ kpi.sources }}<em>个</em></strong></div>
+    <div class="kpi"><span>平均分</span><strong>{{ kpi.avg }}</strong></div>
+    {% if kpi.repos %}
+    <div class="kpi"><span>开源项目</span><strong>{{ kpi.repos }}<em>个</em></strong></div>
+    {% else %}
+    <div class="kpi"><span>覆盖分类</span><strong>{{ kpi.cats }}<em>类</em></strong></div>
+    {% endif %}
+  </section>
+
+  {% if cat_stats %}
+  <section class="dist">
+    <div class="section-head"><h2>分类分布</h2><span>点击筛选</span></div>
+    <div class="bars" id="filters">
+      {% for c in cat_stats %}
+      <button class="bar-row" data-filter="{{ c.name }}" aria-pressed="false">
+        <span class="bar-name">{{ c.name }}</span>
+        <span class="bar-track"><span class="bar-fill" style="width:{{ c.pct }}%;background:{{ c.color }}"></span></span>
+        <span class="bar-num">{{ c.count }}</span>
+      </button>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if hero %}
+  <section class="card hero" data-cat="{{ hero.category }}">
+    <span class="chip {{ hero.cls }}">{{ hero.category }}</span>
+    <h2>{{ hero.title }}</h2>
+    <p class="summary">{{ hero.summary }}</p>
+    {% if hero.why %}<p class="why">为什么重要：{{ hero.why }}</p>{% endif %}
+    <div class="src">
+      <a href="{{ hero.url }}" target="_blank" rel="noopener">{{ hero.source }}</a>
+      <span>{{ hero.time }}</span>
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="grid" id="feed">
+    {% for item in cards %}
+    <article class="card" data-cat="{{ item.category }}">
+      <div class="card-top"><span class="no">{{ item.no }}</span><span class="chip {{ item.cls }}">{{ item.category }}</span></div>
+      <h3>{{ item.title }}</h3>
+      <p class="summary">{{ item.summary }}</p>
+      {% if item.why %}<p class="why">{{ item.why }}</p>{% endif %}
+      <div class="src">
+        <a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.source }}</a>
+        <span>{{ item.time }}</span>
+      </div>
+    </article>
+    {% endfor %}
+  </section>
+
+  {% if not hero %}
+  <div class="empty">今日没有符合条件的条目。可能是时效窗内信源无更新，或关键词过滤过严。</div>
+  {% endif %}
+
+  {% if repos %}
+  <section class="block">
+    <h3 class="block-title">GitHub 精选项目<span>汽车数据 · 新片剪辑 · 数据分析 · 高热 AI · 点击进入仓库</span></h3>
+    <div class="repo-list">
+      {% for r in repos %}
+      <a class="repo" href="{{ r.url }}" target="_blank" rel="noopener">
+        <span class="repo-head">
+          {% if r.extra.focus %}<span class="chip {{ r.focus_cls }}">{{ r.extra.focus }}</span>{% endif %}
+          <span class="repo-name">{{ r.title }}</span>
+        </span>
+        <span class="repo-meta">{{ r.extra.language }} · ★{{ "{:,}".format(r.extra.stars) }}</span>
+        <span class="repo-desc">{{ r.summary }}</span>
+        {% if r.why %}<span class="repo-why">{{ r.why }}</span>{% endif %}
+        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if papers %}
+  <section class="block">
+    <h3 class="block-title">arXiv 论文精选<span>cs.AI / cs.CL / cs.LG</span></h3>
+    <ol class="papers">
+      {% for p in papers %}
+      <li class="paper">
+        <h4>{{ p.no }} {{ p.title }}</h4>
+        <p>{{ p.summary }}</p>
+        {% if p.why %}<p class="why">{{ p.why }}</p>{% endif %}
+        <div class="src">
+          <a href="{{ p.url }}" target="_blank" rel="noopener">arXiv {{ p.extra.arxiv_id }}</a>
+          <span>{{ p.time }}</span>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+  {% endif %}
+
+  <footer>
+    <div class="sources">信源：量子位 · OpenAI · Google AI · Google DeepMind · IT之家 · 雷峰网 · 钛媒体 · Hacker News · arXiv · GitHub</div>
+    <div>口径：过去 24 小时内的公开信息，按事件影响力排序；同一事件多源转载只保留一条。摘要与判断由大模型生成，事实以原文为准。</div>
+    <div>生成于 {{ generated_at }} · <a href="./archive.html">往期归档</a></div>
+  </footer>
+
+</main>
+
+<script>
+(function () {
+  var rows = Array.prototype.slice.call(document.querySelectorAll('[data-filter]'));
+  var cards = Array.prototype.slice.call(document.querySelectorAll('[data-cat]'));
+  var active = null;
+
+  function apply() {
+    cards.forEach(function (el) {
+      var hit = !active || el.getAttribute('data-cat') === active;
+      el.style.display = hit ? '' : 'none';
+    });
+    rows.forEach(function (row) {
+      row.setAttribute('aria-pressed', row.getAttribute('data-filter') === active ? 'true' : 'false');
+    });
+  }
+
+  rows.forEach(function (row) {
+    row.addEventListener('click', function () {
+      var name = row.getAttribute('data-filter');
+      active = active === name ? null : name;
+      apply();
+    });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && active) { active = null; apply(); }
+  });
+})();
+</script>
+</body>
+</html>

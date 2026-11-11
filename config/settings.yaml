@@ -1,0 +1,45 @@
+app:
+  timezone: "Asia/Shanghai"
+  window_hours: 26
+  max_items: 12
+  min_score: 5.0
+  data_dir: "data"
+  docs_dir: "docs"
+  # zh = 只保留中文条目；all = 中英文都收，英文条目由大模型翻译成中文
+  language: "all"
+
+llm:
+  enabled: true
+  base_url: "https://api.deepseek.com/v1"
+  model: "deepseek-chat"
+  api_key_env: "LLM_API_KEY"
+  temperature: 0.2
+  timeout: 150
+  max_input_items: 45
+
+push:
+  # cli = 走已授权的企业微信机器人（不需要 webhook）
+  # webhook = 走群机器人地址；both = 两个都发
+  channel: "cli"
+
+  cli:
+    enabled: true
+    # 目标会话名建议放 .env 的 WECOM_CHAT_NAME，不要写进这个文件（仓库是公开的）
+    chat_name: ""
+    max_bytes: 18000
+
+  wecom:
+    enabled: true
+    webhook_env: "WECOM_WEBHOOK_URL"
+    max_bytes: 3500
+    interval_sec: 3
+    top_n: 5
+
+deploy:
+  enabled: true
+  remote: "origin"
+  branch: "main"
+
+site:
+  # GitHub Pages 线上地址，企微消息里的「查看完整日报」会拼在这里
+  base_url: "https://heihei-zb.github.io/ai-daily-radar"

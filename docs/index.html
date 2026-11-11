@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI 日报 · 2026 年 11 月 11 日</title>
+<meta name="description" content="Anthropic IPO 估值或冲上 1.5 万亿美元，成为当天最受关注的一条；与此同时，纽约州 RAISE Act 开始登记，监管与资本两条线同时收紧。" />
+<style>
+  :root{
+    --ink:#191918; --muted:#6C6A62; --faint:#9A978D;
+    --line:#E5E1D5; --paper:#F6F4EE; --card:#FFFFFF; --soft:#F1EFE7;
+    --accent:#185FA5; --accent-soft:#E6F1FB;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:15px; line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  .page{max-width:1040px; margin:0 auto; padding:0 24px 64px;}
+
+  .mast{padding:38px 0 22px; border-bottom:1px solid var(--line);}
+  .mast-top{display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--faint); letter-spacing:.14em;}
+  .mast-top .nav{display:flex; gap:18px; letter-spacing:0;}
+  .mast-top .nav a{border-bottom:1px solid transparent; padding-bottom:2px;}
+  .mast-top .nav a:hover{border-color:var(--ink); color:var(--ink);}
+  h1{font-size:34px; line-height:1.25; font-weight:600; margin:16px 0 8px; letter-spacing:-.5px;}
+  h1 .wd{font-size:14px; font-weight:400; color:var(--faint); margin-left:12px; letter-spacing:0;}
+  .lede{font-size:15px; color:var(--muted); margin:0 0 14px; max-width:760px;}
+  .meta-line{display:flex; align-items:center; gap:10px; font-size:12px; color:var(--faint); flex-wrap:wrap;}
+  .dot{width:3px; height:3px; border-radius:50%; background:var(--faint); display:inline-block;}
+  .badge-warn{font-size:11px; color:#854F0B; background:#FAEEDA; border-radius:4px; padding:1px 7px;}
+
+  .kpis{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:24px 0 30px;}
+  .kpi{background:var(--soft); border-radius:10px; padding:14px 16px;}
+  .kpi span{display:block; font-size:12px; color:var(--muted);}
+  .kpi strong{display:block; font-size:26px; font-weight:600; margin-top:2px; font-variant-numeric:tabular-nums;}
+  .kpi strong em{font-size:12px; font-style:normal; color:var(--faint); margin-left:3px; font-weight:400;}
+
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; margin:0 0 12px;}
+  .section-head h2{font-size:13px; font-weight:600; letter-spacing:.08em; color:var(--muted); margin:0; text-transform:uppercase;}
+  .section-head span{font-size:12px; color:var(--faint);}
+
+  .dist{margin-bottom:30px;}
+  .bars{display:grid; gap:7px;}
+  .bar-row{display:grid; grid-template-columns:72px 1fr 34px; align-items:center; gap:12px;
+    background:none; border:0; padding:3px 0; cursor:pointer; text-align:left; font:inherit; color:inherit;}
+  .bar-name{font-size:12.5px; color:var(--muted);}
+  .bar-track{height:7px; background:var(--soft); border-radius:4px; overflow:hidden;}
+  .bar-fill{display:block; height:7px; border-radius:4px; transition:width .4s ease;}
+  .bar-num{font-size:12.5px; color:var(--faint); text-align:right; font-variant-numeric:tabular-nums;}
+  .bar-row[aria-pressed="true"] .bar-name{color:var(--ink); font-weight:600;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px 22px; transition:border-color .2s ease;}
+  .card:hover{border-color:#C9C4B4;}
+  .hero{padding:26px 28px 22px; margin-bottom:14px;}
+  .hero h2{font-size:25px; line-height:1.4; font-weight:600; margin:12px 0 12px; letter-spacing:-.2px;}
+  .hero .summary{font-size:15px; line-height:1.85; color:#3D3B36; margin:0 0 12px;}
+  .hero .why{font-size:13.5px;}
+
+  .chip{display:inline-block; font-size:11.5px; line-height:1.6; padding:1px 8px; border-radius:4px;}
+  .chip-model{color:#185FA5; background:#E6F1FB;}
+  .chip-product{color:#0F6E56; background:#E1F5EE;}
+  .chip-oss{color:#993C1D; background:#FAECE7;}
+  .chip-fund{color:#72243E; background:#FBEAF0;}
+  .chip-paper{color:#534AB7; background:#EEEDFE;}
+  .chip-news{color:#5F5E5A; background:#F1EFE8;}
+
+  .card-top{display:flex; align-items:center; justify-content:space-between; gap:8px;}
+  .no{font-size:15px; color:var(--faint); font-variant-numeric:tabular-nums;}
+  .card h3{font-size:16.5px; line-height:1.5; font-weight:600; margin:9px 0 8px;}
+  .summary{font-size:13.5px; line-height:1.8; color:var(--muted); margin:0 0 10px;}
+  .why{font-size:12.5px; line-height:1.75; color:#4A4842; margin:0; padding-left:10px; border-left:2px solid #B5D4F4;}
+  .src{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:12px;
+    font-size:11.5px; color:var(--faint);}
+  .src a{border-bottom:1px solid var(--line);}
+  .src a:hover{color:var(--accent); border-color:var(--accent);}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; margin-bottom:34px;}
+
+  .block{margin-bottom:34px;}
+  .block-title{font-size:17px; font-weight:600; margin:0 0 14px; display:flex; align-items:baseline; gap:12px;}
+  .block-title span{font-size:11.5px; color:var(--faint); font-weight:400;}
+
+  .repo-list{background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden;}
+  .repo{display:grid; grid-template-columns:1fr auto; gap:5px 14px; align-items:start;
+    padding:15px 18px; border-bottom:1px solid var(--line);}
+  .repo:last-child{border-bottom:0;}
+  .repo:hover{background:#FBFAF5;}
+  .repo-head{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .repo-focus{}
+  .repo-name{font-size:14px; font-weight:600; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    letter-spacing:-.2px; word-break:break-all;}
+  .repo:hover .repo-name{color:var(--accent);}
+  .repo-meta{font-size:11.5px; color:var(--faint); text-align:right; white-space:nowrap;}
+  .repo-desc{grid-column:1/2; font-size:12.5px; color:var(--muted); line-height:1.75;}
+  .repo-why{grid-column:1/2; font-size:12px; color:#4A4842; line-height:1.7;
+    padding-left:8px; border-left:2px solid #F0997B;}
+  .repo-link{grid-column:2/3; grid-row:2/4; align-self:center; font-size:12px;
+    color:var(--accent); white-space:nowrap; border-bottom:1px solid transparent;}
+  .repo:hover .repo-link{border-color:var(--accent);}
+
+  .papers{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:6px 0; margin:0; list-style:none;}
+  .paper{padding:14px 20px; border-bottom:1px solid var(--line);}
+  .paper:last-child{border-bottom:0;}
+  .paper h4{font-size:14.5px; font-weight:600; margin:0 0 6px; line-height:1.55;}
+  .paper p{font-size:12.5px; color:var(--muted); margin:0 0 6px; line-height:1.8;}
+  .paper .src{margin-top:0;}
+
+  footer{border-top:1px solid var(--line); padding-top:18px; font-size:12px; color:var(--faint); line-height:1.9;}
+  footer .sources{color:var(--muted);}
+  footer a{border-bottom:1px solid var(--line);}
+
+  .empty{background:var(--card); border:1px dashed var(--line); border-radius:14px; padding:40px; text-align:center; color:var(--faint);}
+
+  @media (max-width:720px){
+    .page{padding:0 16px 48px;}
+    h1{font-size:26px;}
+    h1 .wd{display:block; margin:6px 0 0;}
+    .kpis{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .hero{padding:20px 18px;}
+    .hero h2{font-size:20px;}
+    .grid{grid-template-columns:1fr;}
+    .repo{grid-template-columns:1fr; gap:4px;}
+    .repo-meta{text-align:left;}
+    .repo-desc,.repo-why{grid-column:1/2;}
+    .repo-link{grid-column:1/2; grid-row:auto; align-self:start;}
+    .mast{padding-top:26px;}
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <header class="mast">
+    <div class="mast-top">
+      <span>AI 行业日报</span>
+      <nav class="nav">
+        <a href="./archive.html">往期归档</a>
+      </nav>
+    </div>
+    <h1>2026 年 11 月 11 日<span class="wd">周三</span></h1>
+    <p class="lede">Anthropic IPO 估值或冲上 1.5 万亿美元，成为当天最受关注的一条；与此同时，纽约州 RAISE Act 开始登记，监管与资本两条线同时收紧。</p>
+    <div class="meta-line">
+      <span>生成于 11-11 16:57</span>
+      <span class="dot"></span>
+      <span>9 个信源</span>
+      <span class="dot"></span>
+      <span>12 条入选</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi"><span>今日收录</span><strong>12<em>条</em></strong></div>
+    <div class="kpi"><span>覆盖信源</span><strong>9<em>个</em></strong></div>
+    <div class="kpi"><span>平均分</span><strong>7.9</strong></div>
+    <div class="kpi"><span>开源项目</span><strong>4<em>个</em></strong></div>
+  </section>
+
+  <section class="dist">
+    <div class="section-head"><h2>分类分布</h2><span>点击筛选</span></div>
+    <div class="bars" id="filters">
+      <button class="bar-row" data-filter="产品应用" aria-pressed="false">
+        <span class="bar-name">产品应用</span>
+        <span class="bar-track"><span class="bar-fill" style="width:100.0%;background:#0F6E56"></span></span>
+        <span class="bar-num">4</span>
+      </button>
+      <button class="bar-row" data-filter="模型发布" aria-pressed="false">
+        <span class="bar-name">模型发布</span>
+        <span class="bar-track"><span class="bar-fill" style="width:50.0%;background:#185FA5"></span></span>
+        <span class="bar-num">2</span>
+      </button>
+      <button class="bar-row" data-filter="行业动态" aria-pressed="false">
+        <span class="bar-name">行业动态</span>
+        <span class="bar-track"><span class="bar-fill" style="width:50.0%;background:#5F5E5A"></span></span>
+        <span class="bar-num">2</span>
+      </button>
+      <button class="bar-row" data-filter="开源生态" aria-pressed="false">
+        <span class="bar-name">开源生态</span>
+        <span class="bar-track"><span class="bar-fill" style="width:50.0%;background:#993C1D"></span></span>
+        <span class="bar-num">2</span>
+      </button>
+      <button class="bar-row" data-filter="融资并购" aria-pressed="false">
+        <span class="bar-name">融资并购</span>
+        <span class="bar-track"><span class="bar-fill" style="width:25.0%;background:#72243E"></span></span>
+        <span class="bar-num">1</span>
+      </button>
+      <button class="bar-row" data-filter="研究论文" aria-pressed="false">
+        <span class="bar-name">研究论文</span>
+        <span class="bar-track"><span class="bar-fill" style="width:25.0%;background:#534AB7"></span></span>
+        <span class="bar-num">1</span>
+      </button>
+    </div>
+  </section>
+
+  <section class="card hero" data-cat="融资并购">
+    <span class="chip chip-fund">融资并购</span>
+    <h2>Anthropic 承销商考虑上调 IPO 发行价</h2>
+    <p class="summary">据《金融时报》报道，因投资者认购需求异常旺盛，Anthropic 承销商正考虑上调发行价；公司此前计划下周上市，目标估值约 1.4 万亿美元，原文件发行价为每股 70 至 78 美元。</p>
+<p class="why">为什么重要：若上调落地，将抬高大模型公司上市定价基准，并加剧一级市场对头部 AI 资产的争夺。</p>    <div class="src">
+      <a href="https://www.ithome.com/1/025/526.htm" target="_blank" rel="noopener">IT之家</a>
+      <span>11-11 15:23</span>
+    </div>
+  </section>
+
+  <section class="grid" id="feed">
+    <article class="card" data-cat="模型发布">
+      <div class="card-top"><span class="no">②</span><span class="chip chip-model">模型发布</span></div>
+      <h3>Google 发布 Gemini 4 Carbon</h3>
+      <p class="summary">Google DeepMind 宣布 Gemini 4 Carbon 现已可用，官方未披露参数规模、上下文长度与定价等具体信息。</p>
+<p class="why">头部模型迭代节奏继续加快，企业选型窗口被压缩，迁移成本成为关键变量。</p>      <div class="src">
+        <a href="https://deepmind.google/blog/gemini-4-carbon-is-now-available" target="_blank" rel="noopener">Google DeepMind</a>
+        <span>11-11 00:03</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">③</span><span class="chip chip-news">行业动态</span></div>
+      <h3>纽约州开放 AI 监管登记平台</h3>
+      <p class="summary">纽约州开放 RAISE Act 监管登记平台，OpenAI、Anthropic 等前沿开发商须在 2027 年 1 月 1 日前完成注册；年营收超 5 亿美元者适用，事故须 72 小时内上报。</p>
+<p class="why">美国州级 AI 安全法规首次进入执行阶段，合规成本将重塑前沿模型的部署节奏。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/025/548.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-11 15:36</span>
+      </div>
+    </article>
+    <article class="card" data-cat="研究论文">
+      <div class="card-top"><span class="no">④</span><span class="chip chip-paper">研究论文</span></div>
+      <h3>DeepMind 推出 AlphaProof Code</h3>
+      <p class="summary">Google DeepMind 发布 AlphaProof Code，其智能体用 Lean 编写三百万行证明，用于验证 Signal 的核心加密实现。</p>
+<p class="why">形式化验证从论文走向真实安全关键代码，为软件可信交付提供可复用路径。</p>      <div class="src">
+        <a href="https://deepmind.google/blog/introducing-alphaproof-code" target="_blank" rel="noopener">Google DeepMind</a>
+        <span>11-10 20:02</span>
+      </div>
+    </article>
+    <article class="card" data-cat="产品应用">
+      <div class="card-top"><span class="no">⑤</span><span class="chip chip-product">产品应用</span></div>
+      <h3>腾讯上线元宝搜索</h3>
+      <p class="summary">腾讯云宣布元宝搜索正式上线，可通过 so.qq.com 使用，基于千亿级索引覆盖全网网页、公众号、视频号及学术文献，并明确区分广告与答案。</p>
+<p class="why">搜索入口与腾讯内容生态打通，直接冲击传统搜索的流量与广告变现结构。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/025/471.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-11 14:47</span>
+      </div>
+    </article>
+    <article class="card" data-cat="模型发布">
+      <div class="card-top"><span class="no">⑥</span><span class="chip chip-model">模型发布</span></div>
+      <h3>百度发布文心 5.5 Flash Preview</h3>
+      <p class="summary">文心 5.5 Flash Preview 总参数 2800 亿、每 Token 激活 140 亿，支持最长 100 万 Token 上下文，在编程、3D 建模、知识工作与内容创作上升级，Terminal-Bench 等基准得分具竞争力。</p>
+<p class="why">稀疏激活加超长上下文压低推理成本，国产模型在性价比维度继续施压。</p>      <div class="src">
+        <a href="https://www.leiphone.com/category/industrynews/sqz0hf4DoTPX5mqI.html" target="_blank" rel="noopener">雷峰网</a>
+        <span>11-11 13:22</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">⑦</span><span class="chip chip-news">行业动态</span></div>
+      <h3>SpaceX 自研 Kessel 服务器机架</h3>
+      <p class="summary">SemiAnalysis 披露，SpaceX 正开发定制 AI 服务器机架 Kessel，保留英伟达芯片但自行采购更多配套硬件，将用于地面数据中心与太空轨道计算。</p>
+<p class="why">大客户从整机转向自选配套，英伟达之外的服务器供应链议价权被重新分配。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/025/597.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-11 16:46</span>
+      </div>
+    </article>
+    <article class="card" data-cat="产品应用">
+      <div class="card-top"><span class="no">⑧</span><span class="chip chip-product">产品应用</span></div>
+      <h3>月之暗面推出托管智能体</h3>
+      <p class="summary">月之暗面发布托管智能体，以“出租数字员工”方式交付；业内判断 Agent 计价锚点正从软件与 token 预算滑向人力预算，通用场景以租为主、垂直场景进入租买混合。</p>
+<p class="why">计价方式从 token 转向人力预算，AI 厂商商业模式与客户采购口径随之改变。</p>      <div class="src">
+        <a href="https://www.tmtpost.com/8201187.html" target="_blank" rel="noopener">钛媒体</a>
+        <span>11-11 16:42</span>
+      </div>
+    </article>
+    <article class="card" data-cat="产品应用">
+      <div class="card-top"><span class="no">⑨</span><span class="chip chip-product">产品应用</span></div>
+      <h3>Anthropic 推出三款 Claude 协作产品</h3>
+      <p class="summary">Hacker News 热帖显示，Anthropic 上线 Claude Whiteboards、Claude Sheets 与 Claude Data，帖子获 211 分、150 条讨论。</p>
+<p class="why">Claude 从对话接口延伸至表格与数据工作流，正面进入办公协作场景竞争。</p>      <div class="src">
+        <a href="https://claude.com/resources/articles/sheets-whiteboards-data" target="_blank" rel="noopener">Hacker News</a>
+        <span>11-11 01:55</span>
+      </div>
+    </article>
+    <article class="card" data-cat="产品应用">
+      <div class="card-top"><span class="no">⑩</span><span class="chip chip-product">产品应用</span></div>
+      <h3>Google Cloud 推出医疗版 Gemini</h3>
+      <p class="summary">Google Cloud 发布面向医疗行业的 Gemini，用于统一临床数据并自动化工作流，以减轻行政负担。</p>
+<p class="why">垂直行业成为模型厂商争夺重点，医疗数据整合能力决定落地深度。</p>      <div class="src">
+        <a href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/gemini-for-healthcare" target="_blank" rel="noopener">Google AI</a>
+        <span>11-10 21:00</span>
+      </div>
+    </article>
+    <article class="card" data-cat="开源生态">
+      <div class="card-top"><span class="no">⑪</span><span class="chip chip-oss">开源生态</span></div>
+      <h3>英伟达机器人开源与 Fable 5.2 同期发布</h3>
+      <p class="summary">英伟达机器人方向的开源项目与 Fable 5.2 发布撞期，Jim Fan 公开表示当前不是寒冬而是夏天。</p>
+<p class="why">具身智能开源供给加速，开发者生态竞争从模型转向工具链与仿真环境。</p>      <div class="src">
+        <a href="https://www.qbitai.com/2026/11/509032.html" target="_blank" rel="noopener">量子位</a>
+        <span>11-10 18:35</span>
+      </div>
+    </article>
+    <article class="card" data-cat="开源生态">
+      <div class="card-top"><span class="no">⑫</span><span class="chip chip-oss">开源生态</span></div>
+      <h3>蚂蚁灵波开源 LingBot-Touch</h3>
+      <p class="summary">11 月 10 日，蚂蚁灵波科技开源触觉基础模型 LingBot-Touch，从“一脑多机”推进到“一脑多手”。</p>
+<p class="why">触觉基础模型开源填补具身感知缺口，多手协同成为机器人操作的新路线。</p>      <div class="src">
+        <a href="https://www.qbitai.com/2026/11/508996.html" target="_blank" rel="noopener">量子位</a>
+        <span>11-10 15:57</span>
+      </div>
+    </article>
+  </section>
+
+
+  <section class="block">
+    <h3 class="block-title">GitHub 精选项目<span>汽车数据 · 新片剪辑 · 数据分析 · 高热 AI · 点击进入仓库</span></h3>
+    <div class="repo-list">
+      <a class="repo" href="https://github.com/affaan-m/ECC" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-paper">高热 AI</span>          <span class="repo-name">affaan-m/ECC</span>
+        </span>
+        <span class="repo-meta">JavaScript · ★300,970</span>
+        <span class="repo-desc">面向 Claude Code、Codex、Opencode、Cursor 等编码智能体的性能优化框架，整合技能、直觉、记忆、安全与研究优先的开发流程，可直接用于提升智能体执行效率。</span>
+<span class="repo-why">把智能体调优经验固化为可复用组件，减少各工具重复造轮子。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+      <a class="repo" href="https://github.com/sinaptik-ai/pandas-ai" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-product">数据分析</span>          <span class="repo-name">sinaptik-ai/pandas-ai</span>
+        </span>
+        <span class="repo-meta">Python · ★23,951</span>
+        <span class="repo-desc">用 LLM 与 RAG 让数据库、SQL、CSV、parquet 上的数据分析变成对话式操作，可直接接入现有数据湖做自然语言查询与统计。</span>
+<span class="repo-why">降低非技术用户取数门槛，把 RAG 落到日常分析而非演示场景。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+      <a class="repo" href="https://github.com/JuneYaooo/rea-video" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-fund">新片剪辑</span>          <span class="repo-name">JuneYaooo/rea-video</span>
+        </span>
+        <span class="repo-meta">Python · ★6,735</span>
+        <span class="repo-desc">逐镜头逆向任意视频，判断其是实拍、AI 生成还是代码制作，并给出复刻方法，适合内容创作者做风格拆解与再制作。</span>
+<span class="repo-why">把视频拆解流程工具化，为 AI 生成内容的鉴别与复刻提供可操作入口。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+      <a class="repo" href="https://github.com/fr3ts0n/AndrOBD" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-model">汽车数据</span>          <span class="repo-name">fr3ts0n/AndrOBD</span>
+        </span>
+        <span class="repo-meta">Java · ★2,180</span>
+        <span class="repo-desc">Android 端 OBD 诊断应用，配合任意 ELM327 适配器即可读取车辆数据与故障码，适合车主自查与车载数据采集。</span>
+<span class="repo-why">低成本的通用适配方案，让车况诊断不再依赖专用设备。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="block">
+    <h3 class="block-title">arXiv 论文精选<span>cs.AI / cs.CL / cs.LG</span></h3>
+    <ol class="papers">
+      <li class="paper">
+        <h4>① 医学图像分割：基础模型适配与任务专用训练对比（Medical Image Segmentation: Foundation Model Adaptation versus Task-Specific Training）</h4>
+        <p>系统比较在自然图像上预训练的基础模型经适配后与任务专用模型在医学图像分割上的表现，指出多数已有对比在设置上并不公平，并给出更可比的评测结论。</p>
+<p class="why">为医院与厂商选型提供依据，避免盲目用基础模型替换专用模型。</p>        <div class="src">
+          <a href="https://arxiv.org/abs/2611.14519v1" target="_blank" rel="noopener">arXiv 2611.14519v1</a>
+          <span>11-11 02:59</span>
+        </div>
+      </li>
+      <li class="paper">
+        <h4>② 基于示例定位的基础检测模型 EM-DETR（Toward Foundation Detection Models via Example-Based Grounding in EM-DETR）</h4>
+        <p>针对医学 CAD 依赖大规模精细标注的问题，提出 EM-DETR，通过示例定位构建基础检测模型，减少对逐任务标注数据的依赖。</p>
+<p class="why">少标注即可迁移到新病灶检测，降低医疗 AI 落地数据成本。</p>        <div class="src">
+          <a href="https://arxiv.org/abs/2611.14518v1" target="_blank" rel="noopener">arXiv 2611.14518v1</a>
+          <span>11-11 02:59</span>
+        </div>
+      </li>
+      <li class="paper">
+        <h4>③ TorchCurves：可微参数曲线（TorchCurves: Differentiable Parametric Curves）</h4>
+        <p>提出 PyTorch 库 TorchCurves，把向量值参数曲线作为可学习原语，核心操作将批量标量输入映射到 B 样条或 Legendre 曲线上的点。</p>
+<p class="why">为几何建模与形状优化提供可微工具，便于嵌入现有深度学习流程。</p>        <div class="src">
+          <a href="https://arxiv.org/abs/2611.14516v1" target="_blank" rel="noopener">arXiv 2611.14516v1</a>
+          <span>11-11 02:58</span>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <footer>
+    <div class="sources">信源：量子位 · OpenAI · Google AI · Google DeepMind · IT之家 · 雷峰网 · 钛媒体 · Hacker News · arXiv · GitHub</div>
+    <div>口径：过去 24 小时内的公开信息，按事件影响力排序；同一事件多源转载只保留一条。摘要与判断由大模型生成，事实以原文为准。</div>
+    <div>生成于 11-11 16:57 · <a href="./archive.html">往期归档</a></div>
+  </footer>
+
+</main>
+
+<script>
+(function () {
+  var rows = Array.prototype.slice.call(document.querySelectorAll('[data-filter]'));
+  var cards = Array.prototype.slice.call(document.querySelectorAll('[data-cat]'));
+  var active = null;
+
+  function apply() {
+    cards.forEach(function (el) {
+      var hit = !active || el.getAttribute('data-cat') === active;
+      el.style.display = hit ? '' : 'none';
+    });
+    rows.forEach(function (row) {
+      row.setAttribute('aria-pressed', row.getAttribute('data-filter') === active ? 'true' : 'false');
+    });
+  }
+
+  rows.forEach(function (row) {
+    row.addEventListener('click', function () {
+      var name = row.getAttribute('data-filter');
+      active = active === name ? null : name;
+      apply();
+    });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && active) { active = null; apply(); }
+  });
+})();
+</script>
+</body>
+</html>
