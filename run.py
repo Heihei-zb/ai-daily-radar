@@ -98,10 +98,16 @@ def main() -> int:
         snapshot = json.loads(snapshot_path.read_text(encoding="utf-8"))
         logger.info("重发 %s：%d 条", date_iso, len(snapshot.get("items", [])))
         channel = str(cfg.get("push", {}).get("channel", "cli"))
+        sent = False
         if channel in ("cli", "both"):
-            push_cli(snapshot["items"], snapshot.get("date_cn", date_cn), snapshot.get("overview", ""), page_url, cfg, logger, dry_run=args.dry_run)
+            sent = push_cli(snapshot["items"], snapshot.get("date_cn", date_cn), snapshot.get("overview", ""), page_url, cfg, logger, dry_run=args.dry_run) or sent
         if channel in ("webhook", "both"):
-            push(snapshot["items"], snapshot.get("date_cn", date_cn), snapshot.get("overview", ""), page_url, cfg, logger, dry_run=args.dry_run)
+            sent = push(snapshot["items"], snapshot.get("date_cn", date_cn), snapshot.get("overview", ""), page_url, cfg, logger, dry_run=args.dry_run) or sent
+        # 补发同样要落「已推送」标记，否则定时任务会再发一条
+        if sent and not args.dry_run:
+            conn = store.connect(ROOT / cfg["app"].get("data_dir", "data") / "state.db")
+            store.mark_day_pushed(conn, date_iso)
+            logger.info("已标记 %s 为已推送", date_iso)
         return 0
 
     logger.info("=== 生成 %s，时间窗 %s ~ %s ===", date_iso, window_start.strftime("%m-%d %H:%M"), window_end.strftime("%m-%d %H:%M"))
