@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI 日报 · 2026 年 11 月 12 日</title>
+<meta name="description" content="英伟达董事会启动罢免黄仁勋的程序并物色继任者，成为当天最大变量；Anthropic 启动估值上限 1.405 万亿美元的 IPO 路演，百度发布 2800 亿参数文心 5.5 Flash Preview。" />
+<style>
+  :root{
+    --ink:#191918; --muted:#6C6A62; --faint:#9A978D;
+    --line:#E5E1D5; --paper:#F6F4EE; --card:#FFFFFF; --soft:#F1EFE7;
+    --accent:#185FA5; --accent-soft:#E6F1FB;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:15px; line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  .page{max-width:1040px; margin:0 auto; padding:0 24px 64px;}
+
+  .mast{padding:38px 0 22px; border-bottom:1px solid var(--line);}
+  .mast-top{display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--faint); letter-spacing:.14em;}
+  .mast-top .nav{display:flex; gap:18px; letter-spacing:0;}
+  .mast-top .nav a{border-bottom:1px solid transparent; padding-bottom:2px;}
+  .mast-top .nav a:hover{border-color:var(--ink); color:var(--ink);}
+  h1{font-size:34px; line-height:1.25; font-weight:600; margin:16px 0 8px; letter-spacing:-.5px;}
+  h1 .wd{font-size:14px; font-weight:400; color:var(--faint); margin-left:12px; letter-spacing:0;}
+  .lede{font-size:15px; color:var(--muted); margin:0 0 14px; max-width:760px;}
+  .meta-line{display:flex; align-items:center; gap:10px; font-size:12px; color:var(--faint); flex-wrap:wrap;}
+  .dot{width:3px; height:3px; border-radius:50%; background:var(--faint); display:inline-block;}
+  .badge-warn{font-size:11px; color:#854F0B; background:#FAEEDA; border-radius:4px; padding:1px 7px;}
+
+  .kpis{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:24px 0 30px;}
+  .kpi{background:var(--soft); border-radius:10px; padding:14px 16px;}
+  .kpi span{display:block; font-size:12px; color:var(--muted);}
+  .kpi strong{display:block; font-size:26px; font-weight:600; margin-top:2px; font-variant-numeric:tabular-nums;}
+  .kpi strong em{font-size:12px; font-style:normal; color:var(--faint); margin-left:3px; font-weight:400;}
+
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; margin:0 0 12px;}
+  .section-head h2{font-size:13px; font-weight:600; letter-spacing:.08em; color:var(--muted); margin:0; text-transform:uppercase;}
+  .section-head span{font-size:12px; color:var(--faint);}
+
+  .dist{margin-bottom:30px;}
+  .bars{display:grid; gap:7px;}
+  .bar-row{display:grid; grid-template-columns:72px 1fr 34px; align-items:center; gap:12px;
+    background:none; border:0; padding:3px 0; cursor:pointer; text-align:left; font:inherit; color:inherit;}
+  .bar-name{font-size:12.5px; color:var(--muted);}
+  .bar-track{height:7px; background:var(--soft); border-radius:4px; overflow:hidden;}
+  .bar-fill{display:block; height:7px; border-radius:4px; transition:width .4s ease;}
+  .bar-num{font-size:12.5px; color:var(--faint); text-align:right; font-variant-numeric:tabular-nums;}
+  .bar-row[aria-pressed="true"] .bar-name{color:var(--ink); font-weight:600;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px 22px; transition:border-color .2s ease;}
+  .card:hover{border-color:#C9C4B4;}
+  .hero{padding:26px 28px 22px; margin-bottom:14px;}
+  .hero h2{font-size:25px; line-height:1.4; font-weight:600; margin:12px 0 12px; letter-spacing:-.2px;}
+  .hero .summary{font-size:15px; line-height:1.85; color:#3D3B36; margin:0 0 12px;}
+  .hero .why{font-size:13.5px;}
+
+  .chip{display:inline-block; font-size:11.5px; line-height:1.6; padding:1px 8px; border-radius:4px;}
+  .chip-model{color:#185FA5; background:#E6F1FB;}
+  .chip-product{color:#0F6E56; background:#E1F5EE;}
+  .chip-oss{color:#993C1D; background:#FAECE7;}
+  .chip-fund{color:#72243E; background:#FBEAF0;}
+  .chip-paper{color:#534AB7; background:#EEEDFE;}
+  .chip-news{color:#5F5E5A; background:#F1EFE8;}
+
+  .card-top{display:flex; align-items:center; justify-content:space-between; gap:8px;}
+  .no{font-size:15px; color:var(--faint); font-variant-numeric:tabular-nums;}
+  .card h3{font-size:16.5px; line-height:1.5; font-weight:600; margin:9px 0 8px;}
+  .summary{font-size:13.5px; line-height:1.8; color:var(--muted); margin:0 0 10px;}
+  .why{font-size:12.5px; line-height:1.75; color:#4A4842; margin:0; padding-left:10px; border-left:2px solid #B5D4F4;}
+  .src{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:12px;
+    font-size:11.5px; color:var(--faint);}
+  .src a{border-bottom:1px solid var(--line);}
+  .src a:hover{color:var(--accent); border-color:var(--accent);}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; margin-bottom:34px;}
+
+  .block{margin-bottom:34px;}
+  .block-title{font-size:17px; font-weight:600; margin:0 0 14px; display:flex; align-items:baseline; gap:12px;}
+  .block-title span{font-size:11.5px; color:var(--faint); font-weight:400;}
+
+  .repo-list{background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden;}
+  .repo{display:grid; grid-template-columns:1fr auto; gap:5px 14px; align-items:start;
+    padding:15px 18px; border-bottom:1px solid var(--line);}
+  .repo:last-child{border-bottom:0;}
+  .repo:hover{background:#FBFAF5;}
+  .repo-head{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .repo-focus{}
+  .repo-name{font-size:14px; font-weight:600; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    letter-spacing:-.2px; word-break:break-all;}
+  .repo:hover .repo-name{color:var(--accent);}
+  .repo-meta{font-size:11.5px; color:var(--faint); text-align:right; white-space:nowrap;}
+  .repo-desc{grid-column:1/2; font-size:12.5px; color:var(--muted); line-height:1.75;}
+  .repo-why{grid-column:1/2; font-size:12px; color:#4A4842; line-height:1.7;
+    padding-left:8px; border-left:2px solid #F0997B;}
+  .repo-link{grid-column:2/3; grid-row:2/4; align-self:center; font-size:12px;
+    color:var(--accent); white-space:nowrap; border-bottom:1px solid transparent;}
+  .repo:hover .repo-link{border-color:var(--accent);}
+
+  .papers{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:6px 0; margin:0; list-style:none;}
+  .paper{padding:14px 20px; border-bottom:1px solid var(--line);}
+  .paper:last-child{border-bottom:0;}
+  .paper h4{font-size:14.5px; font-weight:600; margin:0 0 6px; line-height:1.55;}
+  .paper p{font-size:12.5px; color:var(--muted); margin:0 0 6px; line-height:1.8;}
+  .paper .src{margin-top:0;}
+
+  footer{border-top:1px solid var(--line); padding-top:18px; font-size:12px; color:var(--faint); line-height:1.9;}
+  footer .sources{color:var(--muted);}
+  footer a{border-bottom:1px solid var(--line);}
+
+  .empty{background:var(--card); border:1px dashed var(--line); border-radius:14px; padding:40px; text-align:center; color:var(--faint);}
+
+  @media (max-width:720px){
+    .page{padding:0 16px 48px;}
+    h1{font-size:26px;}
+    h1 .wd{display:block; margin:6px 0 0;}
+    .kpis{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .hero{padding:20px 18px;}
+    .hero h2{font-size:20px;}
+    .grid{grid-template-columns:1fr;}
+    .repo{grid-template-columns:1fr; gap:4px;}
+    .repo-meta{text-align:left;}
+    .repo-desc,.repo-why{grid-column:1/2;}
+    .repo-link{grid-column:1/2; grid-row:auto; align-self:start;}
+    .mast{padding-top:26px;}
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <header class="mast">
+    <div class="mast-top">
+      <span>AI 行业日报</span>
+      <nav class="nav">
+<a href="./2026-11-11.html">前一日</a>        <a href="./archive.html">往期归档</a>
+      </nav>
+    </div>
+    <h1>2026 年 11 月 12 日<span class="wd">周四</span></h1>
+    <p class="lede">英伟达董事会启动罢免黄仁勋的程序并物色继任者，成为当天最大变量；Anthropic 启动估值上限 1.405 万亿美元的 IPO 路演，百度发布 2800 亿参数文心 5.5 Flash Preview。</p>
+    <div class="meta-line">
+      <span>生成于 11-12 09:41</span>
+      <span class="dot"></span>
+      <span>5 个信源</span>
+      <span class="dot"></span>
+      <span>9 条入选</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi"><span>今日收录</span><strong>9<em>条</em></strong></div>
+    <div class="kpi"><span>覆盖信源</span><strong>5<em>个</em></strong></div>
+    <div class="kpi"><span>平均分</span><strong>8.1</strong></div>
+    <div class="kpi"><span>开源项目</span><strong>4<em>个</em></strong></div>
+  </section>
+
+  <section class="dist">
+    <div class="section-head"><h2>分类分布</h2><span>点击筛选</span></div>
+    <div class="bars" id="filters">
+      <button class="bar-row" data-filter="行业动态" aria-pressed="false">
+        <span class="bar-name">行业动态</span>
+        <span class="bar-track"><span class="bar-fill" style="width:100.0%;background:#5F5E5A"></span></span>
+        <span class="bar-num">3</span>
+      </button>
+      <button class="bar-row" data-filter="融资并购" aria-pressed="false">
+        <span class="bar-name">融资并购</span>
+        <span class="bar-track"><span class="bar-fill" style="width:66.7%;background:#72243E"></span></span>
+        <span class="bar-num">2</span>
+      </button>
+      <button class="bar-row" data-filter="模型发布" aria-pressed="false">
+        <span class="bar-name">模型发布</span>
+        <span class="bar-track"><span class="bar-fill" style="width:66.7%;background:#185FA5"></span></span>
+        <span class="bar-num">2</span>
+      </button>
+      <button class="bar-row" data-filter="开源生态" aria-pressed="false">
+        <span class="bar-name">开源生态</span>
+        <span class="bar-track"><span class="bar-fill" style="width:33.3%;background:#993C1D"></span></span>
+        <span class="bar-num">1</span>
+      </button>
+      <button class="bar-row" data-filter="产品应用" aria-pressed="false">
+        <span class="bar-name">产品应用</span>
+        <span class="bar-track"><span class="bar-fill" style="width:33.3%;background:#0F6E56"></span></span>
+        <span class="bar-num">1</span>
+      </button>
+    </div>
+  </section>
+
+  <section class="card hero" data-cat="融资并购">
+    <span class="chip chip-fund">融资并购</span>
+    <h2>Anthropic 启动 643.5 亿美元 IPO 路演</h2>
+    <p class="summary">Anthropic 启动 643.5 亿美元 IPO 路演，估值上限 1.405 万亿美元，计划 11 月 19 日登陆纳斯达克，同时推出 Claude Sheets 切入办公场景。</p>
+<p class="why">为什么重要：万亿美元级估值将重定 AI 公司定价锚，办公入口之争再添一家。</p>    <div class="src">
+      <a href="https://www.tmtpost.com/8201799.html" target="_blank" rel="noopener">钛媒体</a>
+      <span>11-12 08:50</span>
+    </div>
+  </section>
+
+  <section class="grid" id="feed">
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">②</span><span class="chip chip-news">行业动态</span></div>
+      <h3>英伟达董事会拟投票罢免黄仁勋</h3>
+      <p class="summary">《华尔街日报》称英伟达董事会计划最快当日召开专项会议，就 CEO 黄仁勋去留投票；五名前员工指控其第二段婚外情，市场预测其 2027 年 7 月前离职概率 80%，股价盘后一度跌 9%。</p>
+<p class="why">创始人离场风险直接冲击算力供应预期，客户与供应链需重估。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/025/829.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-12 06:34</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">③</span><span class="chip chip-news">行业动态</span></div>
+      <h3>英伟达聘外部机构物色新 CEO</h3>
+      <p class="summary">彭博社称英伟达董事会已聘请外部机构寻找接替黄仁勋的 CEO 候选人，并考虑在过渡期任命临时 CEO，领导层更迭进入实质操作阶段。</p>
+<p class="why">继任方案落地意味着治理风险显性化，短期股价与订单谈判承压。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/025/852.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-12 08:18</span>
+      </div>
+    </article>
+    <article class="card" data-cat="模型发布">
+      <div class="card-top"><span class="no">④</span><span class="chip chip-model">模型发布</span></div>
+      <h3>百度发布文心 5.5 Flash Preview</h3>
+      <p class="summary">百度发布文心 5.5 Flash Preview，总参数 2800 亿、每 Token 激活 140 亿，支持最长 100 万 Token 上下文，在编程、3D 建模、知识工作与内容创作上升级，Terminal-Bench 等基准得分具竞争力。</p>
+<p class="why">稀疏激活加长上下文，国产模型在智能体任务上继续压成本。</p>      <div class="src">
+        <a href="https://www.leiphone.com/category/industrynews/sqz0hf4DoTPX5mqI.html" target="_blank" rel="noopener">雷峰网</a>
+        <span>11-11 13:22</span>
+      </div>
+    </article>
+    <article class="card" data-cat="融资并购">
+      <div class="card-top"><span class="no">⑤</span><span class="chip chip-fund">融资并购</span></div>
+      <h3>Stripe 将 OpenRouter 并入旗下</h3>
+      <p class="summary">Stripe 宣布全球最大 AI 模型 API 聚合平台 OpenRouter 正式并入旗下，双方将共同优化 Token 路由与用量分配，帮助企业更有效使用 AI 资源。</p>
+<p class="why">支付巨头掌握模型调用入口，路由层议价权向平台方集中。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/025/833.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-12 07:01</span>
+      </div>
+    </article>
+    <article class="card" data-cat="开源生态">
+      <div class="card-top"><span class="no">⑥</span><span class="chip chip-oss">开源生态</span></div>
+      <h3>谷歌发布 A2UI 1.0 稳定版</h3>
+      <p class="summary">谷歌发布生成式 UI 开放协议 A2UI 1.0 首个稳定版，配套开源网页、Android、iOS 渲染器 SDK 及 Python、TypeScript、Dart 智能体 SDK，Atlassian、彭博社、字节跳动等已采用。</p>
+<p class="why">智能体输出从文字扩展到界面，跨平台交互标准之争开局。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/025/862.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-12 09:08</span>
+      </div>
+    </article>
+    <article class="card" data-cat="模型发布">
+      <div class="card-top"><span class="no">⑦</span><span class="chip chip-model">模型发布</span></div>
+      <h3>谷歌推出 Gemini Decisions API</h3>
+      <p class="summary">谷歌发布 Gemini Decisions API，由 Gemini Decision 1 模型驱动，可在一次快速处理中对文本、图像、视频和 PDF 完成至多 1000 项是非判断、选项选择与标准评估，面向工具选择、策略检查、模型路由等任务。</p>
+<p class="why">把决策做成专用 API，模型路由与风控环节可被标准化调用。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/025/858.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-12 08:55</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">⑧</span><span class="chip chip-news">行业动态</span></div>
+      <h3>Grok 被指生成儿童色情图像遭诉</h3>
+      <p class="summary">彭博社报道，xAI 旗下 Grok 被指被用于生成儿童色情图像，一名受害者 14 岁照片遭篡改，xAI 因此面临多起集体诉讼。</p>
+<p class="why">生成内容责任进入司法阶段，图像模型合规成本将上升。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/025/809.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-11 21:56</span>
+      </div>
+    </article>
+    <article class="card" data-cat="产品应用">
+      <div class="card-top"><span class="no">⑨</span><span class="chip chip-product">产品应用</span></div>
+      <h3>奥尔特曼提议与三星共造 AI 设备</h3>
+      <p class="summary">OpenAI CEO 奥尔特曼在 10 月 31 日三星座谈会上提议双方紧密合作开发下一代 AI 设备，认为其将取代智能手机，由 AI 主动管理用户数字与现实生活。</p>
+<p class="why">OpenAI 寻求硬件落地，三星的代工与终端渠道是关键筹码。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/025/860.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-12 09:02</span>
+      </div>
+    </article>
+  </section>
+
+
+  <section class="block">
+    <h3 class="block-title">GitHub 精选项目<span>汽车数据 · 新片剪辑 · 数据分析 · 高热 AI · 点击进入仓库</span></h3>
+    <div class="repo-list">
+      <a class="repo" href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-paper">高热 AI</span>          <span class="repo-name">NousResearch/hermes-agent</span>
+        </span>
+        <span class="repo-meta">Python · ★262,743</span>
+        <span class="repo-desc">面向智能体的开源框架，主打随使用过程持续积累与成长，可作为构建长期运行 agent 的底座，适合需要记忆与自我迭代的自动化场景。</span>
+<span class="repo-why">与一次性调用型框架不同，强调长期演化，降低自建 agent 门槛。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+      <a class="repo" href="https://github.com/Canner/WrenAI" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-product">数据分析</span>          <span class="repo-name">Canner/WrenAI</span>
+        </span>
+        <span class="repo-meta">Python · ★18,143</span>
+        <span class="repo-desc">开源生成式 BI 工具，通过受治理的开放上下文层把自然语言问题转成可信 SQL 查询，可直接用于企业数据问答与分析报表场景。</span>
+<span class="repo-why">在 text-to-SQL 上加入治理与上下文层，比裸模型更易进生产。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+      <a class="repo" href="https://github.com/kajisho5/ffmpeg-skill" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-fund">新片剪辑</span>          <span class="repo-name">kajisho5/ffmpeg-skill</span>
+        </span>
+        <span class="repo-meta">Python · ★5,097</span>
+        <span class="repo-desc">为编码智能体提供本地视频编辑能力，封装 42 个 FFmpeg 工具，带机器可读契约与 MCP server，可在 Claude Code、Cursor、Codex 中完成剪切、字幕与转码。</span>
+<span class="repo-why">把 FFmpeg 变成智能体可调用工具，免去手工拼命令行。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+      <a class="repo" href="https://github.com/PowerBroker2/ELMduino" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-model">汽车数据</span>          <span class="repo-name">PowerBroker2/ELMduino</span>
+        </span>
+        <span class="repo-meta">C++ · ★944</span>
+        <span class="repo-desc">Arduino 平台的 OBD-II 蓝牙扫描接口库，用于读取车辆诊断数据，可直接用于车载数据采集与车况监测类 DIY 项目。</span>
+<span class="repo-why">低成本打通车端数据读取，适合快速验证车载感知原型。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="block">
+    <h3 class="block-title">arXiv 论文精选<span>cs.AI / cs.CL / cs.LG</span></h3>
+    <ol class="papers">
+      <li class="paper">
+        <h4>① 医学图像分割：基础模型适配与任务专用训练对比（Medical Image Segmentation: Foundation Model Adaptation versus Task-Specific Training）</h4>
+        <p>系统比较自然图像预训练基础模型适配与任务专用训练在医学图像分割上的表现，指出多数对比在数据规模与评测设置上并不对等，结论显示基础模型并非普遍优于专用模型。</p>
+<p class="why">为医院选型提供依据，避免盲目用基础模型替换专用方案。</p>        <div class="src">
+          <a href="https://arxiv.org/abs/2611.14519v1" target="_blank" rel="noopener">arXiv 2611.14519v1</a>
+          <span>11-11 02:59</span>
+        </div>
+      </li>
+      <li class="paper">
+        <h4>② 基于示例定位的基础检测模型 EM-DETR（Toward Foundation Detection Models via Example-Based Grounding in EM-DETR）</h4>
+        <p>针对医学 CAD 依赖大规模精细标注的瓶颈，提出 EM-DETR，通过示例定位实现检测，减少对逐类标注数据的依赖，向基础检测模型推进。</p>
+<p class="why">少标注检测可降低医院落地成本，适合罕见病灶场景。</p>        <div class="src">
+          <a href="https://arxiv.org/abs/2611.14518v1" target="_blank" rel="noopener">arXiv 2611.14518v1</a>
+          <span>11-11 02:59</span>
+        </div>
+      </li>
+      <li class="paper">
+        <h4>③ TorchCurves：可微参数曲线（TorchCurves: Differentiable Parametric Curves）</h4>
+        <p>提出 PyTorch 库 TorchCurves，把向量值参数曲线作为可学习原语，核心操作将批量标量输入映射到 B 样条或 Legendre 曲线上的点，可端到端训练。</p>
+<p class="why">为几何建模与轨迹拟合提供可微工具，补上曲线层缺失。</p>        <div class="src">
+          <a href="https://arxiv.org/abs/2611.14516v1" target="_blank" rel="noopener">arXiv 2611.14516v1</a>
+          <span>11-11 02:58</span>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <footer>
+    <div class="sources">信源：量子位 · OpenAI · Google AI · Google DeepMind · IT之家 · 雷峰网 · 钛媒体 · Hacker News · arXiv · GitHub</div>
+    <div>口径：过去 24 小时内的公开信息，按事件影响力排序；同一事件多源转载只保留一条。摘要与判断由大模型生成，事实以原文为准。</div>
+    <div>生成于 11-12 09:41 · <a href="./archive.html">往期归档</a></div>
+  </footer>
+
+</main>
+
+<script>
+(function () {
+  var rows = Array.prototype.slice.call(document.querySelectorAll('[data-filter]'));
+  var cards = Array.prototype.slice.call(document.querySelectorAll('[data-cat]'));
+  var active = null;
+
+  function apply() {
+    cards.forEach(function (el) {
+      var hit = !active || el.getAttribute('data-cat') === active;
+      el.style.display = hit ? '' : 'none';
+    });
+    rows.forEach(function (row) {
+      row.setAttribute('aria-pressed', row.getAttribute('data-filter') === active ? 'true' : 'false');
+    });
+  }
+
+  rows.forEach(function (row) {
+    row.addEventListener('click', function () {
+      var name = row.getAttribute('data-filter');
+      active = active === name ? null : name;
+      apply();
+    });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && active) { active = null; apply(); }
+  });
+})();
+</script>
+</body>
+</html>
