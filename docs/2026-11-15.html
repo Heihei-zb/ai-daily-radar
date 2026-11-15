@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI 日报 · 2026 年 11 月 15 日</title>
+<meta name="description" content="黄仁勋辞任英伟达CEO震动行业，继任者遴选与去向成焦点；SK海力士逆势扩产HBM4，游戏业对AI态度分化。" />
+<style>
+  :root{
+    --ink:#191918; --muted:#6C6A62; --faint:#9A978D;
+    --line:#E5E1D5; --paper:#F6F4EE; --card:#FFFFFF; --soft:#F1EFE7;
+    --accent:#185FA5; --accent-soft:#E6F1FB;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:15px; line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  .page{max-width:1040px; margin:0 auto; padding:0 24px 64px;}
+
+  .mast{padding:38px 0 22px; border-bottom:1px solid var(--line);}
+  .mast-top{display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--faint); letter-spacing:.14em;}
+  .mast-top .nav{display:flex; gap:18px; letter-spacing:0;}
+  .mast-top .nav a{border-bottom:1px solid transparent; padding-bottom:2px;}
+  .mast-top .nav a:hover{border-color:var(--ink); color:var(--ink);}
+  h1{font-size:34px; line-height:1.25; font-weight:600; margin:16px 0 8px; letter-spacing:-.5px;}
+  h1 .wd{font-size:14px; font-weight:400; color:var(--faint); margin-left:12px; letter-spacing:0;}
+  .lede{font-size:15px; color:var(--muted); margin:0 0 14px; max-width:760px;}
+  .meta-line{display:flex; align-items:center; gap:10px; font-size:12px; color:var(--faint); flex-wrap:wrap;}
+  .dot{width:3px; height:3px; border-radius:50%; background:var(--faint); display:inline-block;}
+  .badge-warn{font-size:11px; color:#854F0B; background:#FAEEDA; border-radius:4px; padding:1px 7px;}
+
+  .kpis{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:24px 0 30px;}
+  .kpi{background:var(--soft); border-radius:10px; padding:14px 16px;}
+  .kpi span{display:block; font-size:12px; color:var(--muted);}
+  .kpi strong{display:block; font-size:26px; font-weight:600; margin-top:2px; font-variant-numeric:tabular-nums;}
+  .kpi strong em{font-size:12px; font-style:normal; color:var(--faint); margin-left:3px; font-weight:400;}
+
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; margin:0 0 12px;}
+  .section-head h2{font-size:13px; font-weight:600; letter-spacing:.08em; color:var(--muted); margin:0; text-transform:uppercase;}
+  .section-head span{font-size:12px; color:var(--faint);}
+
+  .dist{margin-bottom:30px;}
+  .bars{display:grid; gap:7px;}
+  .bar-row{display:grid; grid-template-columns:72px 1fr 34px; align-items:center; gap:12px;
+    background:none; border:0; padding:3px 0; cursor:pointer; text-align:left; font:inherit; color:inherit;}
+  .bar-name{font-size:12.5px; color:var(--muted);}
+  .bar-track{height:7px; background:var(--soft); border-radius:4px; overflow:hidden;}
+  .bar-fill{display:block; height:7px; border-radius:4px; transition:width .4s ease;}
+  .bar-num{font-size:12.5px; color:var(--faint); text-align:right; font-variant-numeric:tabular-nums;}
+  .bar-row[aria-pressed="true"] .bar-name{color:var(--ink); font-weight:600;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px 22px; transition:border-color .2s ease;}
+  .card:hover{border-color:#C9C4B4;}
+  .hero{padding:26px 28px 22px; margin-bottom:14px;}
+  .hero h2{font-size:25px; line-height:1.4; font-weight:600; margin:12px 0 12px; letter-spacing:-.2px;}
+  .hero .summary{font-size:15px; line-height:1.85; color:#3D3B36; margin:0 0 12px;}
+  .hero .why{font-size:13.5px;}
+
+  .chip{display:inline-block; font-size:11.5px; line-height:1.6; padding:1px 8px; border-radius:4px;}
+  .chip-model{color:#185FA5; background:#E6F1FB;}
+  .chip-product{color:#0F6E56; background:#E1F5EE;}
+  .chip-oss{color:#993C1D; background:#FAECE7;}
+  .chip-fund{color:#72243E; background:#FBEAF0;}
+  .chip-paper{color:#534AB7; background:#EEEDFE;}
+  .chip-news{color:#5F5E5A; background:#F1EFE8;}
+
+  .card-top{display:flex; align-items:center; justify-content:space-between; gap:8px;}
+  .no{font-size:15px; color:var(--faint); font-variant-numeric:tabular-nums;}
+  .card h3{font-size:16.5px; line-height:1.5; font-weight:600; margin:9px 0 8px;}
+  .summary{font-size:13.5px; line-height:1.8; color:var(--muted); margin:0 0 10px;}
+  .why{font-size:12.5px; line-height:1.75; color:#4A4842; margin:0; padding-left:10px; border-left:2px solid #B5D4F4;}
+  .src{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:12px;
+    font-size:11.5px; color:var(--faint);}
+  .src a{border-bottom:1px solid var(--line);}
+  .src a:hover{color:var(--accent); border-color:var(--accent);}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; margin-bottom:34px;}
+
+  .block{margin-bottom:34px;}
+  .block-title{font-size:17px; font-weight:600; margin:0 0 14px; display:flex; align-items:baseline; gap:12px;}
+  .block-title span{font-size:11.5px; color:var(--faint); font-weight:400;}
+
+  .repo-list{background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden;}
+  .repo{display:grid; grid-template-columns:1fr auto; gap:5px 14px; align-items:start;
+    padding:15px 18px; border-bottom:1px solid var(--line);}
+  .repo:last-child{border-bottom:0;}
+  .repo:hover{background:#FBFAF5;}
+  .repo-head{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .repo-focus{}
+  .repo-name{font-size:14px; font-weight:600; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    letter-spacing:-.2px; word-break:break-all;}
+  .repo:hover .repo-name{color:var(--accent);}
+  .repo-meta{font-size:11.5px; color:var(--faint); text-align:right; white-space:nowrap;}
+  .repo-desc{grid-column:1/2; font-size:12.5px; color:var(--muted); line-height:1.75;}
+  .repo-why{grid-column:1/2; font-size:12px; color:#4A4842; line-height:1.7;
+    padding-left:8px; border-left:2px solid #F0997B;}
+  .repo-link{grid-column:2/3; grid-row:2/4; align-self:center; font-size:12px;
+    color:var(--accent); white-space:nowrap; border-bottom:1px solid transparent;}
+  .repo:hover .repo-link{border-color:var(--accent);}
+
+  .papers{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:6px 0; margin:0; list-style:none;}
+  .paper{padding:14px 20px; border-bottom:1px solid var(--line);}
+  .paper:last-child{border-bottom:0;}
+  .paper h4{font-size:14.5px; font-weight:600; margin:0 0 6px; line-height:1.55;}
+  .paper p{font-size:12.5px; color:var(--muted); margin:0 0 6px; line-height:1.8;}
+  .paper .src{margin-top:0;}
+
+  footer{border-top:1px solid var(--line); padding-top:18px; font-size:12px; color:var(--faint); line-height:1.9;}
+  footer .sources{color:var(--muted);}
+  footer a{border-bottom:1px solid var(--line);}
+
+  .empty{background:var(--card); border:1px dashed var(--line); border-radius:14px; padding:40px; text-align:center; color:var(--faint);}
+
+  @media (max-width:720px){
+    .page{padding:0 16px 48px;}
+    h1{font-size:26px;}
+    h1 .wd{display:block; margin:6px 0 0;}
+    .kpis{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .hero{padding:20px 18px;}
+    .hero h2{font-size:20px;}
+    .grid{grid-template-columns:1fr;}
+    .repo{grid-template-columns:1fr; gap:4px;}
+    .repo-meta{text-align:left;}
+    .repo-desc,.repo-why{grid-column:1/2;}
+    .repo-link{grid-column:1/2; grid-row:auto; align-self:start;}
+    .mast{padding-top:26px;}
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <header class="mast">
+    <div class="mast-top">
+      <span>AI 行业日报</span>
+      <nav class="nav">
+<a href="./2026-11-14.html">前一日</a>        <a href="./archive.html">往期归档</a>
+      </nav>
+    </div>
+    <h1>2026 年 11 月 15 日<span class="wd">周日</span></h1>
+    <p class="lede">黄仁勋辞任英伟达CEO震动行业，继任者遴选与去向成焦点；SK海力士逆势扩产HBM4，游戏业对AI态度分化。</p>
+    <div class="meta-line">
+      <span>生成于 11-15 18:15</span>
+      <span class="dot"></span>
+      <span>5 个信源</span>
+      <span class="dot"></span>
+      <span>12 条入选</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi"><span>今日收录</span><strong>12<em>条</em></strong></div>
+    <div class="kpi"><span>覆盖信源</span><strong>5<em>个</em></strong></div>
+    <div class="kpi"><span>平均分</span><strong>7.1</strong></div>
+    <div class="kpi"><span>开源项目</span><strong>4<em>个</em></strong></div>
+  </section>
+
+  <section class="dist">
+    <div class="section-head"><h2>分类分布</h2><span>点击筛选</span></div>
+    <div class="bars" id="filters">
+      <button class="bar-row" data-filter="行业动态" aria-pressed="false">
+        <span class="bar-name">行业动态</span>
+        <span class="bar-track"><span class="bar-fill" style="width:100.0%;background:#5F5E5A"></span></span>
+        <span class="bar-num">9</span>
+      </button>
+      <button class="bar-row" data-filter="融资并购" aria-pressed="false">
+        <span class="bar-name">融资并购</span>
+        <span class="bar-track"><span class="bar-fill" style="width:11.1%;background:#72243E"></span></span>
+        <span class="bar-num">1</span>
+      </button>
+      <button class="bar-row" data-filter="开源生态" aria-pressed="false">
+        <span class="bar-name">开源生态</span>
+        <span class="bar-track"><span class="bar-fill" style="width:11.1%;background:#993C1D"></span></span>
+        <span class="bar-num">1</span>
+      </button>
+      <button class="bar-row" data-filter="研究论文" aria-pressed="false">
+        <span class="bar-name">研究论文</span>
+        <span class="bar-track"><span class="bar-fill" style="width:11.1%;background:#534AB7"></span></span>
+        <span class="bar-num">1</span>
+      </button>
+    </div>
+  </section>
+
+  <section class="card hero" data-cat="行业动态">
+    <span class="chip chip-news">行业动态</span>
+    <h2>黄仁勋辞任英伟达CEO，克雷斯任临时CEO</h2>
+    <p class="summary">执掌英伟达33年的黄仁勋本周辞职，CFO克雷斯出任临时CEO；同期阿里拟分拆平头哥赴港独立上市，Anthropic启动IPO路演、估值较峰值近腰斩，DeepSeek发布全家桶应用API。</p>
+<p class="why">为什么重要：创始人离场叠加IPO与分拆潮，AI资本格局进入重新定价期。</p>    <div class="src">
+      <a href="https://www.tmtpost.com/8205592.html" target="_blank" rel="noopener">钛媒体</a>
+      <span>11-15 14:19</span>
+    </div>
+  </section>
+
+  <section class="grid" id="feed">
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">②</span><span class="chip chip-news">行业动态</span></div>
+      <h3>黄仁勋参与遴选英伟达接班人</h3>
+      <p class="summary">据华盛顿邮报报道，黄仁勋辞职后已与至少一位英伟达新CEO候选人通话，参与接班人遴选；他今年1月曾称「永远不会再有第二个我」。</p>
+<p class="why">继任者人选将决定英伟达算力路线与客户关系的连续性。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/027/418.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-15 17:45</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">③</span><span class="chip chip-news">行业动态</span></div>
+      <h3>黄仁勋辞职冲击AI初创融资</h3>
+      <p class="summary">黄仁勋辞任震动科技界，有云计算创始人称「像炸弹爆炸」；英伟达近年每年向初创投入数百亿美元，据PitchBook今年已参与10余起投资。</p>
+<p class="why">英伟达是AI初创最大金主之一，其动荡将传导至一级市场估值。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/027/339.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-15 15:10</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">④</span><span class="chip chip-news">行业动态</span></div>
+      <h3>硅谷预期黄仁勋将东山再起</h3>
+      <p class="summary">Politico引述多位硅谷高管称，业界普遍预期黄仁勋将再创业；Palmer Luckey、Aravind Srinivas已为其辩护，马斯克放风考虑招致麾下。</p>
+<p class="why">若黄仁勋另起炉灶，可能催生新的算力或AI公司竞争者。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/027/354.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-15 15:47</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">⑤</span><span class="chip chip-news">行业动态</span></div>
+      <h3>SK海力士加快扩产HBM4</h3>
+      <p class="summary">韩媒Etnews报道，SK海力士认为HBM需求强劲，正与设备商商讨采购HBM4键合、切割、检测等后道设备，计划明年上半年投入使用。</p>
+<p class="why">存储厂逆周期扩产，HBM4供给竞赛将影响下一代AI芯片成本。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/027/392.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-15 16:15</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">⑥</span><span class="chip chip-news">行业动态</span></div>
+      <h3>美国ASI禁令传闻引发科技股暴跌</h3>
+      <p class="summary">一夜近3万亿元市值蒸发，市场归咎于马斯克转发推文；报道称议员AI监管表态只是导火索，地方算力限流与能耗管控才是击穿行情的主因。</p>
+<p class="why">社会许可与电力约束正成为AI扩产叙事的硬上限。</p>      <div class="src">
+        <a href="https://www.tmtpost.com/8205565.html" target="_blank" rel="noopener">钛媒体</a>
+        <span>11-15 10:30</span>
+      </div>
+    </article>
+    <article class="card" data-cat="融资并购">
+      <div class="card-top"><span class="no">⑦</span><span class="chip chip-fund">融资并购</span></div>
+      <h3>月之暗面拆海外架构，Kimi估值500亿美元</h3>
+      <p class="summary">月之暗面旗下Kimi估值达500亿美元，公司正着手拆除海外架构，报道分析其急于调整股权结构的动因。</p>
+<p class="why">头部大模型公司为上市与合规重构架构，估值锚定行业天花板。</p>      <div class="src">
+        <a href="https://www.tmtpost.com/8205584.html" target="_blank" rel="noopener">钛媒体</a>
+        <span>11-15 10:30</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">⑧</span><span class="chip chip-news">行业动态</span></div>
+      <h3>英伟达员工请愿挽留黄仁勋</h3>
+      <p class="summary">英伟达员工发起集体请愿，要求让黄仁勋回归，马斯克也在请愿上签名，被媒体称为「奥特曼2.0」式反转。</p>
+<p class="why">内部反弹显示创始人符号价值，或影响继任者权威与执行。</p>      <div class="src">
+        <a href="https://www.qbitai.com/2026/11/510297.html" target="_blank" rel="noopener">量子位</a>
+        <span>11-14 18:08</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">⑨</span><span class="chip chip-news">行业动态</span></div>
+      <h3>May Mobility将ID.Buzz改造为Robotaxi</h3>
+      <p class="summary">May Mobility宣布把自家自动驾驶系统整合进大众ID.Buzz，靠车载预测模型实现提前10秒预判路况，计划到2031年投放1万辆。</p>
+<p class="why">轻改装路线降低Robotaxi成本，为传统车企提供量产落地样本。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/027/358.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-15 15:56</span>
+      </div>
+    </article>
+    <article class="card" data-cat="开源生态">
+      <div class="card-top"><span class="no">⑩</span><span class="chip chip-oss">开源生态</span></div>
+      <h3>vLLM双DGX部署GLM-5.3达607.8 tok/s</h3>
+      <p class="summary">Hacker News热帖展示用vLLM在两台英伟达DGX上部署GLM-5.3，推理吞吐达607.8 tok/s，帖文获138分、67条讨论。</p>
+<p class="why">开源推理栈跨节点扩展性能数据，为GLM-5.3生产部署提供参考。</p>      <div class="src">
+        <a href="https://developer.nvidia.com/blog/when-one-gpu-isnt-enough-serving-glm-5-3-across-two-nvidia-dgx-stations-with-vllm" target="_blank" rel="noopener">Hacker News</a>
+        <span>11-14 22:09</span>
+      </div>
+    </article>
+    <article class="card" data-cat="研究论文">
+      <div class="card-top"><span class="no">⑪</span><span class="chip chip-paper">研究论文</span></div>
+      <h3>斯坦福等发布最严湿实验预测基准</h3>
+      <p class="summary">斯坦福、哈佛、康奈尔等十余家团队联合发布湿实验预测基准，测试显示即使推理拉满、算力提升5倍，模型表现仍无明显改善。</p>
+<p class="why">揭示算力堆叠的边际失效，为AI4Science评测设定更硬标准。</p>      <div class="src">
+        <a href="https://www.qbitai.com/2026/11/510232.html" target="_blank" rel="noopener">量子位</a>
+        <span>11-14 17:58</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">⑫</span><span class="chip chip-news">行业动态</span></div>
+      <h3>GDC调查：40%游戏从业者使用AI</h3>
+      <p class="summary">GDC调查2600多名游戏从业者，40%在工作中使用生成式AI，其中57%每天使用；但55%认为AI对行业产生负面影响，仅8%持正面看法。</p>
+<p class="why">创作者端采用率与抵触情绪并存，将影响游戏AI工具商业化。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/027/323.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-15 14:28</span>
+      </div>
+    </article>
+  </section>
+
+
+  <section class="block">
+    <h3 class="block-title">GitHub 精选项目<span>汽车数据 · 新片剪辑 · 数据分析 · 高热 AI · 点击进入仓库</span></h3>
+    <div class="repo-list">
+      <a class="repo" href="https://github.com/langgenius/dify" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-paper">高热 AI</span>          <span class="repo-name">langgenius/dify</span>
+        </span>
+        <span class="repo-meta">Python · ★161,186</span>
+        <span class="repo-desc">开源协作工作台，用于搭建Agentic工作流与RAG管线，支持丰富模型与工具接入，可部署在云端、VPC或自托管环境，团队可直接上手构建应用。</span>
+<span class="repo-why">把工作流编排与RAG整合进同一平台，降低企业自建Agent门槛。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+      <a class="repo" href="https://github.com/veedstudio/open-edit" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-fund">新片剪辑</span>          <span class="repo-name">veedstudio/open-edit</span>
+        </span>
+        <span class="repo-meta">TypeScript · ★1,806</span>
+        <span class="repo-desc">开源、Agent驱动的视频编辑流水线，可自动生成字幕、动效与幻灯片，并完成剪辑与渲染，适合批量内容生产场景直接调用。</span>
+<span class="repo-why">以Agent串联剪辑全流程，区别于单点AI剪辑工具，可脚本化复用。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+      <a class="repo" href="https://github.com/antvis/AVA" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-product">数据分析</span>          <span class="repo-name">antvis/AVA</span>
+        </span>
+        <span class="repo-meta">TypeScript · ★1,635</span>
+        <span class="repo-desc">面向Agent的AI原生可视化分析框架，让智能体自主完成图表生成与数据洞察，可直接接入分析类应用。</span>
+<span class="repo-why">补齐Agent的数据可视化能力，与AntV生态衔接降低集成成本。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+      <a class="repo" href="https://github.com/provrb/obdium" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-model">汽车数据</span>          <span class="repo-name">provrb/obdium</span>
+        </span>
+        <span class="repo-meta">Rust · ★471</span>
+        <span class="repo-desc">免费开源的汽车车载诊断（OBD）软件，读取车辆诊断数据，可自行部署使用，适合车主与开发者做车况监测与数据采集。</span>
+<span class="repo-why">开源替代付费诊断工具，为车况数据二次开发提供自由底座。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="sources">信源：量子位 · OpenAI · Google AI · Google DeepMind · IT之家 · 雷峰网 · 钛媒体 · Hacker News · arXiv · GitHub</div>
+    <div>口径：过去 24 小时内的公开信息，按事件影响力排序；同一事件多源转载只保留一条。摘要与判断由大模型生成，事实以原文为准。</div>
+    <div>生成于 11-15 18:15 · <a href="./archive.html">往期归档</a></div>
+  </footer>
+
+</main>
+
+<script>
+(function () {
+  var rows = Array.prototype.slice.call(document.querySelectorAll('[data-filter]'));
+  var cards = Array.prototype.slice.call(document.querySelectorAll('[data-cat]'));
+  var active = null;
+
+  function apply() {
+    cards.forEach(function (el) {
+      var hit = !active || el.getAttribute('data-cat') === active;
+      el.style.display = hit ? '' : 'none';
+    });
+    rows.forEach(function (row) {
+      row.setAttribute('aria-pressed', row.getAttribute('data-filter') === active ? 'true' : 'false');
+    });
+  }
+
+  rows.forEach(function (row) {
+    row.addEventListener('click', function () {
+      var name = row.getAttribute('data-filter');
+      active = active === name ? null : name;
+      apply();
+    });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && active) { active = null; apply(); }
+  });
+})();
+</script>
+</body>
+</html>
