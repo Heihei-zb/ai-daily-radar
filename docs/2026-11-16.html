@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI 日报 · 2026 年 11 月 16 日</title>
+<meta name="description" content="阿里发布原生多模态旗舰 Qwen4-Max，华为开源盘古与腾讯 WorkBuddy 同步扩模型供给；黄仁勋或重返英伟达的传闻成当日最大变量。" />
+<style>
+  :root{
+    --ink:#191918; --muted:#6C6A62; --faint:#9A978D;
+    --line:#E5E1D5; --paper:#F6F4EE; --card:#FFFFFF; --soft:#F1EFE7;
+    --accent:#185FA5; --accent-soft:#E6F1FB;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:15px; line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  .page{max-width:1040px; margin:0 auto; padding:0 24px 64px;}
+
+  .mast{padding:38px 0 22px; border-bottom:1px solid var(--line);}
+  .mast-top{display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--faint); letter-spacing:.14em;}
+  .mast-top .nav{display:flex; gap:18px; letter-spacing:0;}
+  .mast-top .nav a{border-bottom:1px solid transparent; padding-bottom:2px;}
+  .mast-top .nav a:hover{border-color:var(--ink); color:var(--ink);}
+  h1{font-size:34px; line-height:1.25; font-weight:600; margin:16px 0 8px; letter-spacing:-.5px;}
+  h1 .wd{font-size:14px; font-weight:400; color:var(--faint); margin-left:12px; letter-spacing:0;}
+  .lede{font-size:15px; color:var(--muted); margin:0 0 14px; max-width:760px;}
+  .meta-line{display:flex; align-items:center; gap:10px; font-size:12px; color:var(--faint); flex-wrap:wrap;}
+  .dot{width:3px; height:3px; border-radius:50%; background:var(--faint); display:inline-block;}
+  .badge-warn{font-size:11px; color:#854F0B; background:#FAEEDA; border-radius:4px; padding:1px 7px;}
+
+  .kpis{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:24px 0 30px;}
+  .kpi{background:var(--soft); border-radius:10px; padding:14px 16px;}
+  .kpi span{display:block; font-size:12px; color:var(--muted);}
+  .kpi strong{display:block; font-size:26px; font-weight:600; margin-top:2px; font-variant-numeric:tabular-nums;}
+  .kpi strong em{font-size:12px; font-style:normal; color:var(--faint); margin-left:3px; font-weight:400;}
+
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; margin:0 0 12px;}
+  .section-head h2{font-size:13px; font-weight:600; letter-spacing:.08em; color:var(--muted); margin:0; text-transform:uppercase;}
+  .section-head span{font-size:12px; color:var(--faint);}
+
+  .dist{margin-bottom:30px;}
+  .bars{display:grid; gap:7px;}
+  .bar-row{display:grid; grid-template-columns:72px 1fr 34px; align-items:center; gap:12px;
+    background:none; border:0; padding:3px 0; cursor:pointer; text-align:left; font:inherit; color:inherit;}
+  .bar-name{font-size:12.5px; color:var(--muted);}
+  .bar-track{height:7px; background:var(--soft); border-radius:4px; overflow:hidden;}
+  .bar-fill{display:block; height:7px; border-radius:4px; transition:width .4s ease;}
+  .bar-num{font-size:12.5px; color:var(--faint); text-align:right; font-variant-numeric:tabular-nums;}
+  .bar-row[aria-pressed="true"] .bar-name{color:var(--ink); font-weight:600;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px 22px; transition:border-color .2s ease;}
+  .card:hover{border-color:#C9C4B4;}
+  .hero{padding:26px 28px 22px; margin-bottom:14px;}
+  .hero h2{font-size:25px; line-height:1.4; font-weight:600; margin:12px 0 12px; letter-spacing:-.2px;}
+  .hero .summary{font-size:15px; line-height:1.85; color:#3D3B36; margin:0 0 12px;}
+  .hero .why{font-size:13.5px;}
+
+  .chip{display:inline-block; font-size:11.5px; line-height:1.6; padding:1px 8px; border-radius:4px;}
+  .chip-model{color:#185FA5; background:#E6F1FB;}
+  .chip-product{color:#0F6E56; background:#E1F5EE;}
+  .chip-oss{color:#993C1D; background:#FAECE7;}
+  .chip-fund{color:#72243E; background:#FBEAF0;}
+  .chip-paper{color:#534AB7; background:#EEEDFE;}
+  .chip-news{color:#5F5E5A; background:#F1EFE8;}
+
+  .card-top{display:flex; align-items:center; justify-content:space-between; gap:8px;}
+  .no{font-size:15px; color:var(--faint); font-variant-numeric:tabular-nums;}
+  .card h3{font-size:16.5px; line-height:1.5; font-weight:600; margin:9px 0 8px;}
+  .summary{font-size:13.5px; line-height:1.8; color:var(--muted); margin:0 0 10px;}
+  .why{font-size:12.5px; line-height:1.75; color:#4A4842; margin:0; padding-left:10px; border-left:2px solid #B5D4F4;}
+  .src{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:12px;
+    font-size:11.5px; color:var(--faint);}
+  .src a{border-bottom:1px solid var(--line);}
+  .src a:hover{color:var(--accent); border-color:var(--accent);}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; margin-bottom:34px;}
+
+  .block{margin-bottom:34px;}
+  .block-title{font-size:17px; font-weight:600; margin:0 0 14px; display:flex; align-items:baseline; gap:12px;}
+  .block-title span{font-size:11.5px; color:var(--faint); font-weight:400;}
+
+  .repo-list{background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden;}
+  .repo{display:grid; grid-template-columns:1fr auto; gap:5px 14px; align-items:start;
+    padding:15px 18px; border-bottom:1px solid var(--line);}
+  .repo:last-child{border-bottom:0;}
+  .repo:hover{background:#FBFAF5;}
+  .repo-head{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .repo-focus{}
+  .repo-name{font-size:14px; font-weight:600; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    letter-spacing:-.2px; word-break:break-all;}
+  .repo:hover .repo-name{color:var(--accent);}
+  .repo-meta{font-size:11.5px; color:var(--faint); text-align:right; white-space:nowrap;}
+  .repo-desc{grid-column:1/2; font-size:12.5px; color:var(--muted); line-height:1.75;}
+  .repo-why{grid-column:1/2; font-size:12px; color:#4A4842; line-height:1.7;
+    padding-left:8px; border-left:2px solid #F0997B;}
+  .repo-link{grid-column:2/3; grid-row:2/4; align-self:center; font-size:12px;
+    color:var(--accent); white-space:nowrap; border-bottom:1px solid transparent;}
+  .repo:hover .repo-link{border-color:var(--accent);}
+
+  .papers{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:6px 0; margin:0; list-style:none;}
+  .paper{padding:14px 20px; border-bottom:1px solid var(--line);}
+  .paper:last-child{border-bottom:0;}
+  .paper h4{font-size:14.5px; font-weight:600; margin:0 0 6px; line-height:1.55;}
+  .paper p{font-size:12.5px; color:var(--muted); margin:0 0 6px; line-height:1.8;}
+  .paper .src{margin-top:0;}
+
+  footer{border-top:1px solid var(--line); padding-top:18px; font-size:12px; color:var(--faint); line-height:1.9;}
+  footer .sources{color:var(--muted);}
+  footer a{border-bottom:1px solid var(--line);}
+
+  .empty{background:var(--card); border:1px dashed var(--line); border-radius:14px; padding:40px; text-align:center; color:var(--faint);}
+
+  @media (max-width:720px){
+    .page{padding:0 16px 48px;}
+    h1{font-size:26px;}
+    h1 .wd{display:block; margin:6px 0 0;}
+    .kpis{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .hero{padding:20px 18px;}
+    .hero h2{font-size:20px;}
+    .grid{grid-template-columns:1fr;}
+    .repo{grid-template-columns:1fr; gap:4px;}
+    .repo-meta{text-align:left;}
+    .repo-desc,.repo-why{grid-column:1/2;}
+    .repo-link{grid-column:1/2; grid-row:auto; align-self:start;}
+    .mast{padding-top:26px;}
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <header class="mast">
+    <div class="mast-top">
+      <span>AI 行业日报</span>
+      <nav class="nav">
+<a href="./2026-11-15.html">前一日</a>        <a href="./archive.html">往期归档</a>
+      </nav>
+    </div>
+    <h1>2026 年 11 月 16 日<span class="wd">周一</span></h1>
+    <p class="lede">阿里发布原生多模态旗舰 Qwen4-Max，华为开源盘古与腾讯 WorkBuddy 同步扩模型供给；黄仁勋或重返英伟达的传闻成当日最大变量。</p>
+    <div class="meta-line">
+      <span>生成于 11-16 10:12</span>
+      <span class="dot"></span>
+      <span>3 个信源</span>
+      <span class="dot"></span>
+      <span>10 条入选</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi"><span>今日收录</span><strong>10<em>条</em></strong></div>
+    <div class="kpi"><span>覆盖信源</span><strong>3<em>个</em></strong></div>
+    <div class="kpi"><span>平均分</span><strong>7.1</strong></div>
+    <div class="kpi"><span>开源项目</span><strong>4<em>个</em></strong></div>
+  </section>
+
+  <section class="dist">
+    <div class="section-head"><h2>分类分布</h2><span>点击筛选</span></div>
+    <div class="bars" id="filters">
+      <button class="bar-row" data-filter="行业动态" aria-pressed="false">
+        <span class="bar-name">行业动态</span>
+        <span class="bar-track"><span class="bar-fill" style="width:100.0%;background:#5F5E5A"></span></span>
+        <span class="bar-num">5</span>
+      </button>
+      <button class="bar-row" data-filter="产品应用" aria-pressed="false">
+        <span class="bar-name">产品应用</span>
+        <span class="bar-track"><span class="bar-fill" style="width:60.0%;background:#0F6E56"></span></span>
+        <span class="bar-num">3</span>
+      </button>
+      <button class="bar-row" data-filter="模型发布" aria-pressed="false">
+        <span class="bar-name">模型发布</span>
+        <span class="bar-track"><span class="bar-fill" style="width:40.0%;background:#185FA5"></span></span>
+        <span class="bar-num">2</span>
+      </button>
+    </div>
+  </section>
+
+  <section class="card hero" data-cat="模型发布">
+    <span class="chip chip-model">模型发布</span>
+    <h2>阿里发布旗舰模型 Qwen4-Max</h2>
+    <p class="summary">阿里通义千问团队推出新一代旗舰模型 Qwen4-Max，采用全新 MoE 架构，原生支持视觉理解，提供 100 万 Token 上下文窗口；官方称在提升复杂任务处理能力的同时减少 Token 消耗、降低任务成本。</p>
+<p class="why">为什么重要：原生多模态加百万上下文，直接抬高国内旗舰模型的能力与成本门槛。</p>    <div class="src">
+      <a href="https://www.ithome.com/1/027/512.htm" target="_blank" rel="noopener">IT之家</a>
+      <span>11-16 10:07</span>
+    </div>
+  </section>
+
+  <section class="grid" id="feed">
+    <article class="card" data-cat="模型发布">
+      <div class="card-top"><span class="no">②</span><span class="chip chip-model">模型发布</span></div>
+      <h3>华为云上线开源盘古 openPangu-2.1-Pro</h3>
+      <p class="summary">华为云 MaaS 平台正式上线开源盘古模型 openPangu-2.1-Pro，围绕 Agent 开发、AI 编码、推理优化三大方向升级，覆盖深度研究、鸿蒙系统操控、鸿蒙 App 开发、昇腾算子生成等场景；Agent 能力基于 10 万余条专项数据优化 Skills 触发与工具调用。</p>
+<p class="why">开源加昇腾生态绑定，意在争夺国产 Agent 与编码开发入口。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/027/450.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-15 21:16</span>
+      </div>
+    </article>
+    <article class="card" data-cat="产品应用">
+      <div class="card-top"><span class="no">③</span><span class="chip chip-product">产品应用</span></div>
+      <h3>腾讯 WorkBuddy 接入 Gemini 4 Carbon</h3>
+      <p class="summary">腾讯 WorkBuddy 国际版上线谷歌 Gemini 4 Carbon 模型，支持百万 Token 上下文与文本、图像、音频、视频输入，面向长周期智能体工作流等复杂任务，目前仅向 Pro 计划用户开放。</p>
+<p class="why">国内厂商产品集成海外旗舰模型，说明多模型供给正成为应用层标配。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/027/487.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-16 08:44</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">④</span><span class="chip chip-news">行业动态</span></div>
+      <h3>黄仁勋或考虑重返英伟达任 CEO</h3>
+      <p class="summary">据英国《金融时报》报道，黄仁勋正考虑重返英伟达担任首席执行官，并已与亲信讨论可能性；其硅谷盟友正组建“作战室”游说董事会并争取白宫支持，董事会同时在开展独立调查。</p>
+<p class="why">若成真将改写英伟达治理与 AI 算力供应预期，不确定性本身已是市场变量。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/027/470.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-16 07:26</span>
+      </div>
+    </article>
+    <article class="card" data-cat="产品应用">
+      <div class="card-top"><span class="no">⑤</span><span class="chip chip-product">产品应用</span></div>
+      <h3>华为小艺 AI 会员正式上线</h3>
+      <p class="summary">华为小艺 AI 订阅服务正式上线，整合原“小艺 Work”等付费能力为三级会员体系，开通即享 50GB 起云空间；体验版每月免费赠送 200 AI 积分，付费 49 元起含 1000 积分，小艺 Work 订阅用户可 0 元升级。</p>
+<p class="why">终端厂商把 AI 能力打包成订阅，是消费级 AI 变现路径的一次实测。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/027/506.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-16 09:53</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">⑥</span><span class="chip chip-news">行业动态</span></div>
+      <h3>腾讯总办号召 AI 时代再创业</h3>
+      <p class="summary">腾讯文化发布《总办号召 AI 时代再创业，“心态归零”》一文，披露公司 28 岁生日当天总办 LinkTime 播客内容，谈 AI 时代的机会、挑战与选择，并回应外界对司庆讲话的猜测。</p>
+<p class="why">组织层面的“归零”表态，预示腾讯内部资源与考核将向 AI 倾斜。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/027/509.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-16 10:03</span>
+      </div>
+    </article>
+    <article class="card" data-cat="产品应用">
+      <div class="card-top"><span class="no">⑦</span><span class="chip chip-product">产品应用</span></div>
+      <h3>Claude Fable 5.2 用代码模拟作画</h3>
+      <p class="summary">Anthropic 于 11 月 9 日发布 Claude Fable 5.2 与 Claude Mythos 5.2，其中 Fable 5.2 面向复杂编程、科学研究与工程任务，并展示不调用图像模型、改用 Python 代码模拟真实画笔作画的“AI 生图”方式。</p>
+<p class="why">绕开扩散模型走代码渲染路线，为生图提供另一种技术分支。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/027/490.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-16 09:01</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">⑧</span><span class="chip chip-news">行业动态</span></div>
+      <h3>OpenAI 上线科学博客</h3>
+      <p class="summary">OpenAI 推出科学博客，分享新发现、实用方法以及研究人员使用 AI 推进科学发现的第一手记录。</p>
+<p class="why">以科研叙事扩展生态影响力，争夺学术界心智与使用场景。</p>      <div class="src">
+        <a href="https://openai.com/index/our-new-blog-for-science" target="_blank" rel="noopener">OpenAI</a>
+        <span>11-16 06:00</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">⑨</span><span class="chip chip-news">行业动态</span></div>
+      <h3>Anthropic CEO 称算力是最深层难题</h3>
+      <p class="summary">Anthropic 联合创始人兼 CEO 达里奥·阿莫迪与摩根大通 CEO 杰米·戴蒙公开对谈，称算力是公司“最深层商业难题”，并解释上市重要原因是增加现金储备以缓冲高度不确定的算力需求；戴蒙提及 Anthropic 披露涉及算力、租赁和数据中心的 9,000 亿美元项目。</p>
+<p class="why">头部实验室把算力资本开支摆上台面，融资竞赛将进一步升温。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/027/505.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-16 09:52</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">⑩</span><span class="chip chip-news">行业动态</span></div>
+      <h3>韩国全面调查国家资格考试 AI 作弊</h3>
+      <p class="summary">韩国税务师考试第一名考生被查出利用 AI 作弊，政府决定取消其成绩并限制五年内不得参考，同时对今年所有国家资格考试展开全面调查，并计划年内出台红外线探测等防作弊综合措施。</p>
+<p class="why">AI 作弊进入高利害考试，倒逼各国考试监管与技术防控升级。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/027/453.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-15 21:42</span>
+      </div>
+    </article>
+  </section>
+
+
+  <section class="block">
+    <h3 class="block-title">GitHub 精选项目<span>汽车数据 · 新片剪辑 · 数据分析 · 高热 AI · 点击进入仓库</span></h3>
+    <div class="repo-list">
+      <a class="repo" href="https://github.com/open-webui/open-webui" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-paper">高热 AI</span>          <span class="repo-name">open-webui/open-webui</span>
+        </span>
+        <span class="repo-meta">Svelte · ★158,765</span>
+        <span class="repo-desc">面向用户的 AI 对话界面，可对接 Ollama、OpenAI API 等多种后端，自部署即可获得统一的多模型聊天与模型管理入口，适合团队内网搭建私有 AI 工作台。</span>
+<span class="repo-why">把多后端统一到一个界面，降低自建 AI 前端的接入与运维成本。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+      <a class="repo" href="https://github.com/HKUSTDial/NL2SQL_Handbook" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-product">数据分析</span>          <span class="repo-name">HKUSTDial/NL2SQL_Handbook</span>
+        </span>
+        <span class="repo-meta">Python · ★1,634</span>
+        <span class="repo-desc">持续更新的 Text-to-SQL 技术手册，系统梳理文献中的最新方法与实践经验，为研究者和工程团队跟踪 NL2SQL 进展、选型落地提供参考，适合构建数据库问答与报表分析系统前查阅。</span>
+<span class="repo-why">NL2SQL 方法分散，成体系的手册能显著缩短选型与复现路径。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+      <a class="repo" href="https://github.com/ChatCut-Inc/agent-plugin" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-fund">新片剪辑</span>          <span class="repo-name">ChatCut-Inc/agent-plugin</span>
+        </span>
+        <span class="repo-meta">JavaScript · ★1,042</span>
+        <span class="repo-desc">面向 Agent 的 AI 视频编辑插件与 MCP server，可接入 Codex、ChatGPT、Claude Code、Cursor、Grok、Gemini CLI、WorkBuddy、豆包 Work、Qwen Work 等，让智能体直接完成视频剪辑操作。</span>
+<span class="repo-why">把视频剪辑封装成 Agent 可调用工具，拓宽 MCP 生态的创作场景。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+      <a class="repo" href="https://github.com/iwanders/OBD9141" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-model">汽车数据</span>          <span class="repo-name">iwanders/OBD9141</span>
+        </span>
+        <span class="repo-meta">C++ · ★353</span>
+        <span class="repo-desc">一个用于读取汽车 OBD-II 诊断口中 ISO 9141-2 总线的类实现，帮助开发者在车载诊断场景下完成与 ECU 的底层通信，可直接嵌入车辆数据采集与故障诊断程序。</span>
+<span class="repo-why">补齐老旧车型 K 线协议支持，对低成本车况采集有实用价值。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="sources">信源：量子位 · OpenAI · Google AI · Google DeepMind · IT之家 · 雷峰网 · 钛媒体 · Hacker News · arXiv · GitHub</div>
+    <div>口径：过去 24 小时内的公开信息，按事件影响力排序；同一事件多源转载只保留一条。摘要与判断由大模型生成，事实以原文为准。</div>
+    <div>生成于 11-16 10:12 · <a href="./archive.html">往期归档</a></div>
+  </footer>
+
+</main>
+
+<script>
+(function () {
+  var rows = Array.prototype.slice.call(document.querySelectorAll('[data-filter]'));
+  var cards = Array.prototype.slice.call(document.querySelectorAll('[data-cat]'));
+  var active = null;
+
+  function apply() {
+    cards.forEach(function (el) {
+      var hit = !active || el.getAttribute('data-cat') === active;
+      el.style.display = hit ? '' : 'none';
+    });
+    rows.forEach(function (row) {
+      row.setAttribute('aria-pressed', row.getAttribute('data-filter') === active ? 'true' : 'false');
+    });
+  }
+
+  rows.forEach(function (row) {
+    row.addEventListener('click', function () {
+      var name = row.getAttribute('data-filter');
+      active = active === name ? null : name;
+      apply();
+    });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && active) { active = null; apply(); }
+  });
+})();
+</script>
+</body>
+</html>
