@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI 日报 · 2026 年 11 月 18 日</title>
+<meta name="description" content="OpenAI 在 Anthropic IPO 定价前夜发布 GPT-6.2 Astra 与 Sol 双模型，成为当天最受关注的一条；英伟达则在黄仁勋离职后交出营收翻倍的财报，并继续加码供应链。" />
+<style>
+  :root{
+    --ink:#191918; --muted:#6C6A62; --faint:#9A978D;
+    --line:#E5E1D5; --paper:#F6F4EE; --card:#FFFFFF; --soft:#F1EFE7;
+    --accent:#185FA5; --accent-soft:#E6F1FB;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:15px; line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  .page{max-width:1040px; margin:0 auto; padding:0 24px 64px;}
+
+  .mast{padding:38px 0 22px; border-bottom:1px solid var(--line);}
+  .mast-top{display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--faint); letter-spacing:.14em;}
+  .mast-top .nav{display:flex; gap:18px; letter-spacing:0;}
+  .mast-top .nav a{border-bottom:1px solid transparent; padding-bottom:2px;}
+  .mast-top .nav a:hover{border-color:var(--ink); color:var(--ink);}
+  h1{font-size:34px; line-height:1.25; font-weight:600; margin:16px 0 8px; letter-spacing:-.5px;}
+  h1 .wd{font-size:14px; font-weight:400; color:var(--faint); margin-left:12px; letter-spacing:0;}
+  .lede{font-size:15px; color:var(--muted); margin:0 0 14px; max-width:760px;}
+  .meta-line{display:flex; align-items:center; gap:10px; font-size:12px; color:var(--faint); flex-wrap:wrap;}
+  .dot{width:3px; height:3px; border-radius:50%; background:var(--faint); display:inline-block;}
+  .badge-warn{font-size:11px; color:#854F0B; background:#FAEEDA; border-radius:4px; padding:1px 7px;}
+
+  .kpis{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:24px 0 30px;}
+  .kpi{background:var(--soft); border-radius:10px; padding:14px 16px;}
+  .kpi span{display:block; font-size:12px; color:var(--muted);}
+  .kpi strong{display:block; font-size:26px; font-weight:600; margin-top:2px; font-variant-numeric:tabular-nums;}
+  .kpi strong em{font-size:12px; font-style:normal; color:var(--faint); margin-left:3px; font-weight:400;}
+
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; margin:0 0 12px;}
+  .section-head h2{font-size:13px; font-weight:600; letter-spacing:.08em; color:var(--muted); margin:0; text-transform:uppercase;}
+  .section-head span{font-size:12px; color:var(--faint);}
+
+  .dist{margin-bottom:30px;}
+  .bars{display:grid; gap:7px;}
+  .bar-row{display:grid; grid-template-columns:72px 1fr 34px; align-items:center; gap:12px;
+    background:none; border:0; padding:3px 0; cursor:pointer; text-align:left; font:inherit; color:inherit;}
+  .bar-name{font-size:12.5px; color:var(--muted);}
+  .bar-track{height:7px; background:var(--soft); border-radius:4px; overflow:hidden;}
+  .bar-fill{display:block; height:7px; border-radius:4px; transition:width .4s ease;}
+  .bar-num{font-size:12.5px; color:var(--faint); text-align:right; font-variant-numeric:tabular-nums;}
+  .bar-row[aria-pressed="true"] .bar-name{color:var(--ink); font-weight:600;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px 22px; transition:border-color .2s ease;}
+  .card:hover{border-color:#C9C4B4;}
+  .hero{padding:26px 28px 22px; margin-bottom:14px;}
+  .hero h2{font-size:25px; line-height:1.4; font-weight:600; margin:12px 0 12px; letter-spacing:-.2px;}
+  .hero .summary{font-size:15px; line-height:1.85; color:#3D3B36; margin:0 0 12px;}
+  .hero .why{font-size:13.5px;}
+
+  .chip{display:inline-block; font-size:11.5px; line-height:1.6; padding:1px 8px; border-radius:4px;}
+  .chip-model{color:#185FA5; background:#E6F1FB;}
+  .chip-product{color:#0F6E56; background:#E1F5EE;}
+  .chip-oss{color:#993C1D; background:#FAECE7;}
+  .chip-fund{color:#72243E; background:#FBEAF0;}
+  .chip-paper{color:#534AB7; background:#EEEDFE;}
+  .chip-news{color:#5F5E5A; background:#F1EFE8;}
+
+  .card-top{display:flex; align-items:center; justify-content:space-between; gap:8px;}
+  .no{font-size:15px; color:var(--faint); font-variant-numeric:tabular-nums;}
+  .card h3{font-size:16.5px; line-height:1.5; font-weight:600; margin:9px 0 8px;}
+  .summary{font-size:13.5px; line-height:1.8; color:var(--muted); margin:0 0 10px;}
+  .why{font-size:12.5px; line-height:1.75; color:#4A4842; margin:0; padding-left:10px; border-left:2px solid #B5D4F4;}
+  .src{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:12px;
+    font-size:11.5px; color:var(--faint);}
+  .src a{border-bottom:1px solid var(--line);}
+  .src a:hover{color:var(--accent); border-color:var(--accent);}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; margin-bottom:34px;}
+
+  .block{margin-bottom:34px;}
+  .block-title{font-size:17px; font-weight:600; margin:0 0 14px; display:flex; align-items:baseline; gap:12px;}
+  .block-title span{font-size:11.5px; color:var(--faint); font-weight:400;}
+
+  .repo-list{background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden;}
+  .repo{display:grid; grid-template-columns:1fr auto; gap:5px 14px; align-items:start;
+    padding:15px 18px; border-bottom:1px solid var(--line);}
+  .repo:last-child{border-bottom:0;}
+  .repo:hover{background:#FBFAF5;}
+  .repo-head{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .repo-focus{}
+  .repo-name{font-size:14px; font-weight:600; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    letter-spacing:-.2px; word-break:break-all;}
+  .repo:hover .repo-name{color:var(--accent);}
+  .repo-meta{font-size:11.5px; color:var(--faint); text-align:right; white-space:nowrap;}
+  .repo-desc{grid-column:1/2; font-size:12.5px; color:var(--muted); line-height:1.75;}
+  .repo-why{grid-column:1/2; font-size:12px; color:#4A4842; line-height:1.7;
+    padding-left:8px; border-left:2px solid #F0997B;}
+  .repo-link{grid-column:2/3; grid-row:2/4; align-self:center; font-size:12px;
+    color:var(--accent); white-space:nowrap; border-bottom:1px solid transparent;}
+  .repo:hover .repo-link{border-color:var(--accent);}
+
+  .papers{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:6px 0; margin:0; list-style:none;}
+  .paper{padding:14px 20px; border-bottom:1px solid var(--line);}
+  .paper:last-child{border-bottom:0;}
+  .paper h4{font-size:14.5px; font-weight:600; margin:0 0 6px; line-height:1.55;}
+  .paper p{font-size:12.5px; color:var(--muted); margin:0 0 6px; line-height:1.8;}
+  .paper .src{margin-top:0;}
+
+  footer{border-top:1px solid var(--line); padding-top:18px; font-size:12px; color:var(--faint); line-height:1.9;}
+  footer .sources{color:var(--muted);}
+  footer a{border-bottom:1px solid var(--line);}
+
+  .empty{background:var(--card); border:1px dashed var(--line); border-radius:14px; padding:40px; text-align:center; color:var(--faint);}
+
+  @media (max-width:720px){
+    .page{padding:0 16px 48px;}
+    h1{font-size:26px;}
+    h1 .wd{display:block; margin:6px 0 0;}
+    .kpis{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .hero{padding:20px 18px;}
+    .hero h2{font-size:20px;}
+    .grid{grid-template-columns:1fr;}
+    .repo{grid-template-columns:1fr; gap:4px;}
+    .repo-meta{text-align:left;}
+    .repo-desc,.repo-why{grid-column:1/2;}
+    .repo-link{grid-column:1/2; grid-row:auto; align-self:start;}
+    .mast{padding-top:26px;}
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <header class="mast">
+    <div class="mast-top">
+      <span>AI 行业日报</span>
+      <nav class="nav">
+<a href="./2026-11-17.html">前一日</a>        <a href="./archive.html">往期归档</a>
+      </nav>
+    </div>
+    <h1>2026 年 11 月 18 日<span class="wd">周三</span></h1>
+    <p class="lede">OpenAI 在 Anthropic IPO 定价前夜发布 GPT-6.2 Astra 与 Sol 双模型，成为当天最受关注的一条；英伟达则在黄仁勋离职后交出营收翻倍的财报，并继续加码供应链。</p>
+    <div class="meta-line">
+      <span>生成于 11-18 10:07</span>
+      <span class="dot"></span>
+      <span>3 个信源</span>
+      <span class="dot"></span>
+      <span>9 条入选</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi"><span>今日收录</span><strong>9<em>条</em></strong></div>
+    <div class="kpi"><span>覆盖信源</span><strong>3<em>个</em></strong></div>
+    <div class="kpi"><span>平均分</span><strong>8.0</strong></div>
+    <div class="kpi"><span>开源项目</span><strong>4<em>个</em></strong></div>
+  </section>
+
+  <section class="dist">
+    <div class="section-head"><h2>分类分布</h2><span>点击筛选</span></div>
+    <div class="bars" id="filters">
+      <button class="bar-row" data-filter="行业动态" aria-pressed="false">
+        <span class="bar-name">行业动态</span>
+        <span class="bar-track"><span class="bar-fill" style="width:100.0%;background:#5F5E5A"></span></span>
+        <span class="bar-num">4</span>
+      </button>
+      <button class="bar-row" data-filter="模型发布" aria-pressed="false">
+        <span class="bar-name">模型发布</span>
+        <span class="bar-track"><span class="bar-fill" style="width:75.0%;background:#185FA5"></span></span>
+        <span class="bar-num">3</span>
+      </button>
+      <button class="bar-row" data-filter="融资并购" aria-pressed="false">
+        <span class="bar-name">融资并购</span>
+        <span class="bar-track"><span class="bar-fill" style="width:50.0%;background:#72243E"></span></span>
+        <span class="bar-num">2</span>
+      </button>
+    </div>
+  </section>
+
+  <section class="card hero" data-cat="行业动态">
+    <span class="chip chip-news">行业动态</span>
+    <h2>英伟达发布黄仁勋离职后首份财报</h2>
+    <p class="summary">2027 财年前三季度归母净利润 1832.97 亿美元，同比增长 137.72%；第三财季营收 1158.44 亿美元，同比增长 103%，前三季度总营收 2936.81 亿美元。</p>
+<p class="why">为什么重要：业绩高增说明客户需求尚未因人事动荡松动，但市场会更关注后续供应与产能节奏。</p>    <div class="src">
+      <a href="https://www.ithome.com/1/028/575.htm" target="_blank" rel="noopener">IT之家</a>
+      <span>11-18 05:25</span>
+    </div>
+  </section>
+
+  <section class="grid" id="feed">
+    <article class="card" data-cat="模型发布">
+      <div class="card-top"><span class="no">②</span><span class="chip chip-model">模型发布</span></div>
+      <h3>寒武纪 Day 0 适配商汤 SenseNova Loop-9B</h3>
+      <p class="summary">商汤发布 SenseNova Loop-9B，通过 Loop 结构复用模型层参数并结合流形约束超连接（mHC），在有限参数下扩展计算深度，面向复杂推理、代码、工具调用与多模态任务；寒武纪同日完成 Day 0 适配。</p>
+<p class="why">国产芯片与新模型的当日协同，说明软硬件联合调优正成为推理落地的竞争点。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/028/568.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-18 00:58</span>
+      </div>
+    </article>
+    <article class="card" data-cat="融资并购">
+      <div class="card-top"><span class="no">③</span><span class="chip chip-fund">融资并购</span></div>
+      <h3>AMD 完成对李飞飞团队的收购</h3>
+      <p class="summary">AMD 以 82 亿美元股票完成交易，从宣布到交割仅用 46 天，李飞飞正式率队加入 AMD，苏姿丰亲自欢迎。</p>
+<p class="why">AMD 以股票并购快速补齐 AI 人才与团队，对英伟达形成更直接的人才与产品竞争。</p>      <div class="src">
+        <a href="https://www.qbitai.com/2026/11/510695.html" target="_blank" rel="noopener">量子位</a>
+        <span>11-17 22:15</span>
+      </div>
+    </article>
+    <article class="card" data-cat="模型发布">
+      <div class="card-top"><span class="no">④</span><span class="chip chip-model">模型发布</span></div>
+      <h3>OpenAI 发布 GPT-6.2 Astra 与 Sol 双模型</h3>
+      <p class="summary">OpenAI 在 Anthropic IPO 定价前一天发布 GPT-6.2 Astra 和 GPT-6.2 Sol，重点提升专业工作、编程、计算机操作与多步骤智能体任务，并降低输出 Token 消耗，多数测试不输 Anthropic 旗舰模型。</p>
+<p class="why">选在对手上市前发布，直接压制其定价叙事，同时以更低 Token 成本争夺企业客户。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/028/577.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-18 06:23</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">⑤</span><span class="chip chip-news">行业动态</span></div>
+      <h3>黄仁勋称愿重返英伟达任 CEO</h3>
+      <p class="summary">黄仁勋自 11 月 12 日辞职后首次公开表态，称若董事会认为回归最符合股东、员工与公司利益，他愿意重返英伟达担任 CEO。</p>
+<p class="why">创始人去留直接牵动英伟达战略连续性，任何回归信号都会影响投资者与客户预期。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/028/566.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-18 00:40</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">⑥</span><span class="chip chip-news">行业动态</span></div>
+      <h3>英伟达临时 CEO 称客户员工不会流失</h3>
+      <p class="summary">临时 CEO 科莱特・克雷斯表示，主要客户在黄仁勋辞职后仍高度支持英伟达，并主动要求更多产能，但她同时承认留住核心人才是外界质疑的焦点。</p>
+<p class="why">管理层试图稳住市场信心，但人才留存问题仍是人事动荡后的真实风险点。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/028/626.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-18 09:39</span>
+      </div>
+    </article>
+    <article class="card" data-cat="行业动态">
+      <div class="card-top"><span class="no">⑦</span><span class="chip chip-news">行业动态</span></div>
+      <h3>英伟达向景硕投资超 10 亿美元</h3>
+      <p class="summary">英伟达宣布向中国台湾地区 ABF 封装基板制造商景硕投资超 10 亿美元现金用于购买设备，支持其桃园幼狮厂扩产，目标将先进 ABF 封装基板产能扩大 3.5 倍以上。</p>
+<p class="why">直接注资关键基板环节，反映 AI 算力瓶颈正从芯片本身向封装材料与产能转移。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/028/608.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-18 08:51</span>
+      </div>
+    </article>
+    <article class="card" data-cat="融资并购">
+      <div class="card-top"><span class="no">⑧</span><span class="chip chip-fund">融资并购</span></div>
+      <h3>Genesis AI 完成 5 亿美元 A 轮融资</h3>
+      <p class="summary">法国通用机器人公司 Genesis AI 完成 5 亿美元 A 轮融资，估值达 35 亿美元，投资方包括谷歌前 CEO 施密特、Khosla Ventures、英伟达及法国政府支持机构，为欧洲机器人行业最大融资之一。</p>
+<p class="why">大额早期融资涌入通用机器人，欧洲正试图在具身智能赛道建立本土头部公司。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/028/605.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-18 08:44</span>
+      </div>
+    </article>
+    <article class="card" data-cat="模型发布">
+      <div class="card-top"><span class="no">⑨</span><span class="chip chip-model">模型发布</span></div>
+      <h3>快手可灵上线 Kling Image 4.0</h3>
+      <p class="summary">快手可灵发布新一代图像创作模型 Kling Image 4.0，采用理解生成统一架构，首次支持原生 8K，单图内可生成 2000 字，并同步面向企业客户与开发者开放 API。</p>
+<p class="why">图像模型向超高分辨率与长文本排版推进，直接冲击设计与营销内容生产工具。</p>      <div class="src">
+        <a href="https://www.ithome.com/1/028/563.htm" target="_blank" rel="noopener">IT之家</a>
+        <span>11-17 23:26</span>
+      </div>
+    </article>
+  </section>
+
+
+  <section class="block">
+    <h3 class="block-title">GitHub 精选项目<span>汽车数据 · 新片剪辑 · 数据分析 · 高热 AI · 点击进入仓库</span></h3>
+    <div class="repo-list">
+      <a class="repo" href="https://github.com/Graphify-Labs/graphify" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-paper">高热 AI</span>          <span class="repo-name">Graphify-Labs/graphify</span>
+        </span>
+        <span class="repo-meta">Python · ★149,689</span>
+        <span class="repo-desc">把代码库连同文档、SQL schema、配置与 PDF 转成可查询知识图谱，以 /graphify 技能形式接入 Claude Code、Cursor、Codex 与 Gemini，可直接用于大型项目的跨文件检索与理解。</span>
+<span class="repo-why">把散落的工程资料统一成图谱，弥补纯向量检索在结构化依赖关系上的不足。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+      <a class="repo" href="https://github.com/Gitruck/cli" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-fund">新片剪辑</span>          <span class="repo-name">Gitruck/cli</span>
+        </span>
+        <span class="repo-meta">TypeScript · ★972</span>
+        <span class="repo-desc">一条命令即可把口播毛片转成可二次精修的剪辑工程，省去手动对轴与粗剪环节，适合短视频与口播内容创作者快速出片。</span>
+<span class="repo-why">把剪辑从成片交付变为可编辑工程，比一次性生成视频更贴合实际工作流。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+      <a class="repo" href="https://github.com/premAI-io/premsql" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-product">数据分析</span>          <span class="repo-name">premAI-io/premsql</span>
+        </span>
+        <span class="repo-meta">Python · ★462</span>
+        <span class="repo-desc">端到端、本地优先的 Text-to-SQL 流水线，数据不出本地即可完成自然语言到 SQL 的转换，可直接接入自有数据库做查询与分析。</span>
+<span class="repo-why">本地优先路线回应企业对数据外流的顾虑，适合对合规敏感的私有化场景。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+      <a class="repo" href="https://github.com/pylessard/python-can-isotp" target="_blank" rel="noopener">
+        <span class="repo-head">
+<span class="chip chip-model">汽车数据</span>          <span class="repo-name">pylessard/python-can-isotp</span>
+        </span>
+        <span class="repo-meta">Python · ★317</span>
+        <span class="repo-desc">提供 ISO-TP（ISO-15765）协议支持的 Python 包，用于在 CAN 总线上传输超过单帧长度的数据，可直接用于汽车诊断与 ECU 通信开发。</span>
+<span class="repo-why">补齐 Python 生态的 ISO-TP 实现，降低车载总线开发与测试的工具门槛。</span>        <span class="repo-link">打开仓库 ↗</span>
+      </a>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="sources">信源：量子位 · OpenAI · Google AI · Google DeepMind · IT之家 · 雷峰网 · 钛媒体 · Hacker News · arXiv · GitHub</div>
+    <div>口径：过去 24 小时内的公开信息，按事件影响力排序；同一事件多源转载只保留一条。摘要与判断由大模型生成，事实以原文为准。</div>
+    <div>生成于 11-18 10:07 · <a href="./archive.html">往期归档</a></div>
+  </footer>
+
+</main>
+
+<script>
+(function () {
+  var rows = Array.prototype.slice.call(document.querySelectorAll('[data-filter]'));
+  var cards = Array.prototype.slice.call(document.querySelectorAll('[data-cat]'));
+  var active = null;
+
+  function apply() {
+    cards.forEach(function (el) {
+      var hit = !active || el.getAttribute('data-cat') === active;
+      el.style.display = hit ? '' : 'none';
+    });
+    rows.forEach(function (row) {
+      row.setAttribute('aria-pressed', row.getAttribute('data-filter') === active ? 'true' : 'false');
+    });
+  }
+
+  rows.forEach(function (row) {
+    row.addEventListener('click', function () {
+      var name = row.getAttribute('data-filter');
+      active = active === name ? null : name;
+      apply();
+    });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && active) { active = null; apply(); }
+  });
+})();
+</script>
+</body>
+</html>
